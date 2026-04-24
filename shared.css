@@ -1,0 +1,91 @@
+/* shared.css — nav + footer + base reset for non-homepage pages (blog, etc).
+   Extracted from index.html inline <style> so /blog/* and other SEO pages
+   can render without duplicating styles. Blog pages layer blog.css on top. */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, 'Helvetica Neue', sans-serif;
+  background: #fff;
+  color: #1d1a1a;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a { color: inherit; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px; height: 72px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid #f0f0f0;
+  transition: box-shadow 0.3s ease, border-bottom-color 0.3s ease;
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 12px;
+  text-decoration: none; color: #1d1a1a;
+}
+.nav-logo span {
+  font-size: 30px; font-weight: 800; letter-spacing: -1.2px;
+}
+.logo-svg { width: 40px; height: 40px; }
+
+.nav-links {
+  display: flex; align-items: center; gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 17px; color: #888; text-decoration: none;
+  transition: color 0.15s; font-weight: 500;
+}
+.nav-links a:hover { color: #1d1a1a; }
+
+.btn-nav {
+  font-size: 16px; font-weight: 600; padding: 10px 24px;
+  background: #1d1a1a; color: #fff; border-radius: 10px;
+  text-decoration: none; transition: opacity 0.15s;
+}
+.btn-nav:hover { opacity: 0.8; }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid #f0f0f0; padding: 20px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 960px; margin: 0 auto;
+}
+.footer-left {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; color: #bbb;
+}
+.footer-links {
+  display: flex; gap: 20px; list-style: none;
+}
+.footer-links a {
+  font-size: 12px; color: #bbb; text-decoration: none;
+  transition: color 0.15s;
+}
+.footer-links a:hover { color: #1d1a1a; }
+
+/* ── SCROLL PROGRESS ── */
+#scroll-progress {
+  position: fixed; top: 0; left: 0; height: 2px;
+  width: 100%;
+  background: linear-gradient(90deg, #2563eb, #93c5fd);
+  transform-origin: 0 0;
+  transform: scaleX(0);
+  z-index: 9999; pointer-events: none;
+  will-change: transform;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  nav { padding: 0 20px; height: 60px; }
+  .nav-logo span { font-size: 22px; }
+  .logo-svg { width: 28px; height: 28px; }
+  .btn-nav { font-size: 13px; padding: 8px 16px; }
+  .nav-links { display: none; }
+}

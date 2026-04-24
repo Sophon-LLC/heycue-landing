@@ -1,0 +1,79 @@
+name: Preview deploy (Cloudflare Pages)
+
+# Builds a preview URL for every PR against main.
+# Production deploys are still done manually by maintainers with `--branch=main`.
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+  deployments: write
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    # Only run for PRs from the same repo (forks don't get secrets — safety).
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to Cloudflare Pages (Preview)
+        id: deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: >-
+            pages deploy .
+            --project-name=heycue
+            --branch=pr-${{ github.event.pull_request.number }}
+            --commit-dirty=true
+            --commit-hash=${{ github.event.pull_request.head.sha }}
+            --commit-message="PR #${{ github.event.pull_request.number }}: ${{ github.event.pull_request.title }}"
+
+      - name: Comment preview URL on PR
+        uses: actions/github-script@v7
+        if: steps.deploy.outcome == 'success'
+        with:
+          script: |
+            const prNumber = context.issue.number;
+            const sha = context.payload.pull_request.head.sha.substring(0, 7);
+            const previewUrl = `https://pr-${prNumber}.heycue.pages.dev`;
+            const body = [
+              `Preview deployed for \`${sha}\``,
+              ``,
+              `- URL: ${previewUrl}`,
+              `- Updates on every push to this PR.`,
+              ``,
+              `Production deploys to heycue.io happen after merge, manually by a maintainer.`,
+            ].join('\n');
+
+            // Try to find an existing preview comment and update it
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+            });
+            const existing = comments.find(c =>
+              c.user.type === 'Bot' && c.body.startsWith('Preview deployed for')
+            );
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                body,
+              });
+            }

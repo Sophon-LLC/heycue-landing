@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://heycue.io/sitemap.xml
+
+# AI crawlers — structured product info
+# See https://llmstxt.org for the standard
+LLMs-Txt: https://heycue.io/llms.txt

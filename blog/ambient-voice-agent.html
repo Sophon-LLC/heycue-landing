@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Stop opening ChatGPT. Start talking to your screen. — Cue</title>
+
+<meta name="description" content="2026's AI agents all live in CLIs and browser tabs. We think they should live on your screen, next to whatever you're already doing. Here's the bet." />
+<meta name="author" content="Eli, Cue" />
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+<link rel="canonical" href="https://heycue.io/blog/ambient-voice-agent" />
+
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://heycue.io/blog/ambient-voice-agent" />
+<meta property="og:title" content="Stop opening ChatGPT. Start talking to your screen." />
+<meta property="og:description" content="2026's AI agents all live in CLIs and browser tabs. We think they should live on your screen, next to whatever you're already doing. Here's the bet." />
+<meta property="og:image" content="https://heycue.io/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:site_name" content="Cue" />
+<meta property="article:published_time" content="Wed Apr 22 2026 08:00:00 GMT+0800 (China Standard Time)" />
+<meta property="article:author" content="Eli" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="The agent should come to you, not the other way around" />
+<meta name="twitter:description" content="2026's AI agents all live in CLIs and browser tabs. We think they should live on your screen, next to whatever you're already doing. Here's the bet." />
+<meta name="twitter:image" content="https://heycue.io/og-image.png" />
+
+<link rel="icon" type="image/png" href="/favicon.png" />
+<link rel="apple-touch-icon" href="/icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" /></noscript>
+<link rel="stylesheet" href="/shared.css?v=1776854931619" />
+<link rel="stylesheet" href="/blog.css?v=1776854931619" />
+
+<!-- Cloudflare Web Analytics — pageviews + referrers, zero-config, GDPR-safe -->
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c9e1d1b8f5a84c0a9d5e2f3a7b8c9e1d"}'></script>
+
+<!-- Google Analytics 4 — property: cue-ai-desktop -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X6BT55F7Z6"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-X6BT55F7Z6', { send_page_view: true });
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Stop opening ChatGPT. Start talking to your screen.",
+  "description": "2026's AI agents all live in CLIs and browser tabs. We think they should live on your screen, next to whatever you're already doing. Here's the bet.",
+  "author": {
+    "@type": "Person",
+    "name": "Eli"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Cue",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://heycue.io/icon.png"
+    }
+  },
+  "datePublished": "2026-04-22T00:00:00.000Z",
+  "dateModified": "2026-04-22T00:00:00.000Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://heycue.io/blog/ambient-voice-agent"
+  },
+  "image": "https://heycue.io/og-image.png",
+  "url": "https://heycue.io/blog/ambient-voice-agent"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://heycue.io/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://heycue.io/blog"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Stop opening ChatGPT. Start talking to your screen.",
+      "item": "https://heycue.io/blog/ambient-voice-agent"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<div id="scroll-progress"></div>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <img class="logo-svg" src="/icon-light.png" alt="Cue" />
+    <span>Cue</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/#how">How it works</a></li>
+    <li><a href="/features">Features</a></li>
+    <li><a href="/alternatives">Compare</a></li>
+    <li><a href="/updates">Updates</a></li>
+    <li><a href="/#faq">FAQ</a></li>
+  </ul>
+  <a href="/#download" class="btn-nav">Download</a>
+</nav>
+
+<main class="post-page">
+  <header class="post-header">
+    <div class="post-eyebrow"><span class="dot"></span>Blog</div>
+    <h1 class="post-title">Stop opening ChatGPT. Start talking to your screen.</h1>
+    <div class="post-meta">
+      <span>Eli, Cue</span>
+      <span class="sep">·</span>
+      <time datetime="Wed Apr 22 2026 08:00:00 GMT+0800 (China Standard Time)">April 22, 2026</time>
+      <span class="sep">·</span>
+      <span>9 min read</span>
+    </div>
+  </header>
+
+  <article class="post-body">
+<p>2026 has given us extraordinary AI agents. Claude Code. Manus. Genspark. OpenClaw. Hermes. They can reason, use tools, and solve problems that felt impossible just a year ago. But almost all of them live in the same three places: a command line, a chat window, or a browser tab. Each one asks you to stop what you are doing, go to a special place, and describe your world to an agent that cannot see it.</p>
+<p>This post is about what happens when you stop making users walk to the agent, and bring the agent to the user instead. Voice is the front door. Ambient is the form. We call it an ambient voice agent, meaning one that lives on your screen next to whatever you&#39;re already doing, instead of in a separate window you have to open. It&#39;s the bet we&#39;re making with Cue.</p>
+<p>The idea came from two moments, two months apart.</p>
+<h2>Two moments that changed my mind</h2>
+<p>Three months ago, I quit my job. I was running AI monetization at a top internet company, a role most people would hold onto. I left because I had seen something that made every other bet feel small. One person, one laptop, one voice. A factory of one. A company of one. I wanted to find out if that feeling was real, or just the high of a good weekend project. This post is about what I found.</p>
+<p>Three months later, the numbers say the bet was real. 1,002 commits. 51 days. Three quarters of them written with an AI agent riding shotgun. I have never coded alone, and I have never typed faster. A single person, a handful of Claude sessions, and a voice. That is the factory.</p>
+<p>For context: the last time I shipped production code, Obama was president.</p>
+<p>It started with a post from Andrej Karpathy about the surprising efficiency of voice coding. I was curious. I plugged an early build of Cue into Claude Code and started talking instead of typing. The first thing I noticed wasn&#39;t speed. It was flow.</p>
+<p>I was in the kind of deep focus I hadn&#39;t felt since my first year of programming. The keyboard had always been a latency layer between my thoughts and the screen. Voice just removed it. I could think, speak, and see the code appear, without the mechanical translation of fingers on keys.</p>
+<p>Two weeks later, I was talking to a friend. She&#39;s a UX designer at a well-known AI agent company, and she told me she was designing the interaction patterns for their next product entirely by voice. She was using Google Stitch on her Mac and iPad, speaking her design decisions into the AI while she cooked dinner. Her hands were covered in flour. She never touched a keyboard.</p>
+<p>At the end of the evening, the app screens were done. She was using one voice-AI product to design another voice-AI product, without thinking about it.</p>
+<p>That was the moment I stopped thinking of voice as an engineer&#39;s shortcut. Dictation speed was never the point. The point was where the agent shows up.</p>
+<p>She&#39;d never open a terminal to do that. But almost every other agent in 2026 would force her to.</p>
+<h2>Where 2026&#39;s agents actually live</h2>
+<p>Take a quick look at the landscape. Claude Code lives in your terminal. Cursor lives in its own IDE. Manus and Genspark live in a browser tab. The powerful open-source loops like OpenClaw and Hermes are toolkits you embed into your own UI, which for most developers, is another terminal or web app.</p>
+<p>The pattern is clear. Almost all of them require the user to stop what they are doing and enter a dedicated environment. You leave your document, you open a terminal. You leave your design file, you open a browser tab. You context-switch to the agent&#39;s world.</p>
+<p>This makes sense. The CLI and the browser are the native habitats of developers, and developers were the first users of these powerful new tools. But developers are not the default user anymore. They are the early case.</p>
+<p>An agent that lives in a terminal is an agent for engineers. Fine for now. Not where this goes.</p>
+<p>The obvious reaction is: fine, so let&#39;s replace the terminal with voice. But that misses the actual shift.</p>
+<h2>Voice isn&#39;t the opposite of CLI. It&#39;s the opposite of a learning curve.</h2>
+<p>We are not anti-CLI. We use the terminal every day. The point is not that the CLI is bad. The point is that the CLI has a learning curve, and voice does not.</p>
+<p>You already know how to talk. There is no special syntax to learn, no flags to remember, no man page to consult. You state your intent directly.</p>
+<p>This is why voice is already the default input on our most personal devices. We talk to our phones with Siri, our homes with Alexa, and our cars with CarPlay. The desktop is the last holdout, and only because the people who built the desktop built it for themselves.</p>
+<p>Voice is the input layer with the shortest distance between what you want and what gets done.</p>
+<p>But voice alone is just dictation. What turns voice into an agent is what happens after the words stop.</p>
+<h2>Ambient: the agent comes to you</h2>
+<p>An ambient voice agent is a voice-triggered agent that lives on your screen, not in a separate window. &quot;Ambient&quot; because it&#39;s just there, in the background, the way a lamp is in the room. You don&#39;t go to it. It might be a floating bar at the top of your display, or a dynamic panel that appears only when you need it. It is a companion, not a destination.</p>
+<p>The key mechanism is how it gathers context. Cue automatically reads five layers of context the moment you speak: your voice, any selected text, a screenshot of your active window, the accessibility attributes of the UI element you&#39;re focused on, and the name of the active app. The user never has to describe their context. The agent already sees it.</p>
+<p>This is the difference between a standalone agent and a symbiotic one. A standalone agent, like Claude Code in a terminal, is separate from your work. You have to feed it context. A symbiotic agent is already in your context.</p>
+<p>My friend in the kitchen doesn&#39;t open a terminal. She doesn&#39;t need to. Stitch knows she&#39;s in a design file because the design file is what&#39;s on screen. Voice says what. The screen says where. The agent does the rest.</p>
+<blockquote>
+<p>Your agent doesn&#39;t need a better brain. It needs a better front door.</p>
+</blockquote>
+<p>That sounds clean in theory. In practice, ambient works or fails on one thing: whether the agent can actually see what you&#39;re pointing at. Let me show you with Microsoft Office.</p>
+<h2>The Office case: why describing context kills agents</h2>
+<p>Imagine you are in an Excel spreadsheet. You select a cell containing a product description in French. You want to tell an agent: &quot;Translate this, format it as a bulleted list, and summarize it in one sentence.&quot; This is a simple, multi-step task.</p>
+<p>For an agent in a chat window, this is impossible without a painful back-and-forth. The agent has to ask: &quot;Which cell? Which file? Which sheet? Do you mean cell B3 in &#39;Q2_Projections.xlsx&#39; on Sheet1?&quot; Nobody wants to talk like a spreadsheet coordinate system. This friction is what kills most voice agents before they even get started.</p>
+<p>The ambient approach is different. When you speak, Cue is already looking. On macOS, it uses the Accessibility API to read the selected text, the window title, and the focused input attributes. It knows you&#39;re in Excel, it knows the filename, and it knows the content of the cell you selected. On Windows, the equivalent APIs are narrower, so we fall back to the clipboard when necessary. In browser-based apps like Google Sheets, we can use JavaScript injection to read the DOM structure directly. A screenshot with vision is the final fallback.</p>
+<p>To be honest about the engineering, this is not a solved problem. To reliably identify a specific cell in Office for complex actions, you sometimes need plugin-level JavaScript injection. Without that, you fall back to the clipboard, which can be lossy. We built Cue to always use the highest-fidelity context channel available, and to degrade gracefully when it isn&#39;t.</p>
+<p>The agent&#39;s intelligence is bottlenecked by what it can see. Vision isn&#39;t a feature here. It&#39;s the floor everything else stands on.</p>
+<p>So you have two problems, not one. The input problem (voice) and the output problem (context and execution). They sit on different axes, and almost nobody solves both.</p>
+<h2>Voice is hard. Agents are hard. They are hard in different ways.</h2>
+<p>The challenge of building a useful agent can be mapped onto two axes: input and output.</p>
+<p>The input axis is about understanding the user&#39;s request. This is the domain of voice. The challenges are noise, accents, speed, and accuracy. We use Deepgram&#39;s Nova-2 in the cloud for primary transcription, with local Whisper as an option. We then run a polish pass through Google&#39;s Gemini Flash, correcting punctuation and casing to match the destination app. We&#39;re also experimenting with Gemma for lower latency, aiming to push more of this on-device.</p>
+<p>The output axis is about executing the user&#39;s request. This is the domain of the agent. The challenges are permissions, context acquisition, and environment-specific quirks. The Microsoft Office example is a perfect illustration. The browser sandbox, macOS&#39;s TCC permissions, and Windows UIA all have their own rules and limitations.</p>
+<p>These two problems are rarely mastered by the same team. That&#39;s why some companies are world-class at input and do almost nothing with output. It&#39;s why others are world-class at output but barely touch the input layer. The middle, where voice turns into action across any app, is where Cue sits.</p>
+<blockquote>
+<p>Everyone is wrapping models. Cue wraps harder.</p>
+</blockquote>
+<p>If our value isn&#39;t the model, and isn&#39;t the voice engine, and isn&#39;t the agent loop, what is it?</p>
+<h2>Wrap harder: the philosophy</h2>
+<p>We wrap harder than anyone else. That&#39;s the philosophy.</p>
+<p>&quot;Wrapping&quot; has become a dismissive term, but it&#39;s the entire game. The value isn&#39;t in the model. It&#39;s in the quality of the connection between the model and the real world. Wrapping isn&#39;t the insult people think it is. The wrapper is where the user actually lives.</p>
+<p>We have immense respect for the work on agent loops and tool use by projects like OpenClaw and Hermes. They are building the right kind of brain. Cue doesn&#39;t try to rebuild it. We build the last mile: the interface between that brain and whatever the user is trying to do right now. That means using the permissions the user grants us fully, pulling the richest context we can from the active scene, and showing up in a form that feels like a companion instead of a destination.</p>
+<p>Our core belief is that code, used as a medium for chain-of-thought reasoning and tool use, can solve almost anything. The question is not whether the brain works. It&#39;s whether the user can get to it without leaving what they&#39;re doing.</p>
+<p>This is why we&#39;re not scared of better models. Every time Claude or Gemini ships something smarter, Cue gets sharper without us writing a line. Our value isn&#39;t the reasoning. It&#39;s the entry and exit points for that reasoning.</p>
+<blockquote>
+<p>The deeper the model goes, the stronger Cue gets.</p>
+</blockquote>
+<p>And because Cue is always there, it can learn. Over time, it will see the patterns you repeat, the apps you live in, the kinds of tasks you hand off. That accumulation of personal context is the asset we&#39;re building next. The base models don&#39;t have it. Cue will.</p>
+<p>Which brings me back to my friend in the kitchen.</p>
+<h2>Back to the kitchen</h2>
+<p>It&#39;s the end of the evening. Dinner is on the table.</p>
+<p>The app design is done. She never opened a terminal. She never touched a keyboard. She just talked.</p>
+<p>And the app she was designing? Another one of these on-screen companions. A different team, a different product, the same bet. We&#39;re all building toward the same future from different directions. The agents that win are the ones that come to the user.</p>
+<p>That future is not built in a terminal. It&#39;s built on your screen, next to whatever you&#39;re already doing.</p>
+<hr>
+<p>They hear what you said.
+Cue sees what you&#39;re doing.
+And does the thing, in any app.</p>
+
+  </article>
+
+  <div class="post-twitter">
+    <a class="twitter-card" href="https://x.com/Pro420461340" target="_blank" rel="noopener">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="#1a1714"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      <div class="twitter-card-text">
+        <div class="twitter-card-title">Follow Cue on X</div>
+        <div class="twitter-card-handle">For ship notes, voice demos, and weekly changelogs.</div>
+      </div>
+      <span class="twitter-card-follow">Follow</span>
+    </a>
+  </div>
+
+  <div class="post-cta">
+    <div class="post-cta-eyebrow">Ready to try</div>
+    <h3>Cue your AI.</h3>
+    <p>Voice-activated AI that lives on your screen, next to whatever you're already doing.</p>
+    <a href="/#download" class="btn-cta">
+      Download for Mac &amp; Windows
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-left">
+    <img width="16" height="16" src="/icon-light.png" alt="Cue" style="border-radius:4px;" />
+    © 2026 Cue · heycue.io
+  </div>
+  <ul class="footer-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/features">Features</a></li>
+    <li><a href="/updates">Updates</a></li>
+    <li><a href="/privacy.html">Privacy</a></li>
+    <li><a href="/terms.html">Terms</a></li>
+  </ul>
+</footer>
+
+<script>
+  // Scroll progress bar (composited transform, no layout thrash)
+  const prog = document.getElementById('scroll-progress')
+  let ticking = false
+  const SLUG = "ambient-voice-agent"
+  const TRACK = (typeof gtag === 'function')
+  const fired = { 25: false, 50: false, 100: false }
+  window.addEventListener('scroll', () => {
+    if (ticking) return
+    ticking = true
+    requestAnimationFrame(() => {
+      const h = document.documentElement
+      const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100
+      prog.style.transform = 'scaleX(' + (pct / 100) + ')'
+      // Scroll-depth milestones → GA4 event (fires once each)
+      for (const m of [25, 50, 100]) {
+        if (!fired[m] && pct >= m - 1) {
+          fired[m] = true
+          if (TRACK) gtag('event', 'blog_read_' + m, { slug: SLUG, depth_pct: m })
+        }
+      }
+      ticking = false
+    })
+  }, { passive: true })
+  // CTA click tracking (dark pill + twitter card)
+  document.querySelectorAll('.btn-cta, .twitter-card').forEach(el => {
+    el.addEventListener('click', () => {
+      if (!TRACK) return
+      const kind = el.classList.contains('btn-cta') ? 'download' : 'twitter'
+      gtag('event', 'blog_cta_click', { slug: SLUG, cta: kind })
+    })
+  })
+  // Time-on-page (sends on unload)
+  const t0 = Date.now()
+  window.addEventListener('pagehide', () => {
+    if (!TRACK) return
+    gtag('event', 'blog_time_on_page', { slug: SLUG, seconds: Math.round((Date.now() - t0) / 1000) })
+  })
+</script>
+
+</body>
+</html>

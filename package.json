@@ -1,0 +1,9 @@
+{
+  "name": "cue-landing-scripts",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "marked": "^18.0.2"
+  }
+}

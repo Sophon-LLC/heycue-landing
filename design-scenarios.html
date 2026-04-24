@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cue — Scenario Design v4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #fff; color: #1d1a1a; }
+.page { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+
+.header { padding: 40px 0 20px; border-bottom: 1px solid #f0f0f0; margin-bottom: 80px; }
+.header h1 { font-size: 13px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #bbb; }
+
+.scene-section { margin-bottom: 100px; }
+.scene-section h2 { font-size: 56px; font-weight: 800; letter-spacing: -2.5px; margin-bottom: 10px; }
+.scene-section .sub { font-size: 18px; color: #888; margin-bottom: 56px; }
+
+.scene-block { margin-bottom: 140px; }
+.scene-header { margin-bottom: 32px; }
+.scene-header h3 { font-size: 36px; font-weight: 800; letter-spacing: -1.2px; margin-bottom: 10px; }
+.scene-header .voice-cmd { font-size: 18px; color: #555; line-height: 1.6; font-style: italic; max-width: 640px; }
+
+.scene-footer { display: flex; align-items: center; gap: 24px; margin-top: 24px; flex-wrap: wrap; }
+.scene-footer .result { font-size: 15px; color: #2563eb; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.scene-footer .meta { font-size: 14px; color: #bbb; }
+.money-tag { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 600; color: #16a34a; background: #f0fdf4; border: 1px solid #dcfce7; border-radius: 8px; padding: 6px 14px; }
+
+/* Mockup container */
+.mockup-wrap { border-radius: 24px; padding: 40px; min-height: 480px; position: relative; overflow: hidden; background: #f7f8fa; }
+.mockup-inner { display: grid; gap: 20px; }
+.mockup-inner.two { grid-template-columns: 1fr 1fr; align-items: start; }
+.mockup-inner.stack { grid-template-columns: 1fr; max-width: 720px; margin: 0 auto; }
+
+/* Window chrome */
+.win { background: #fff; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 32px rgba(0,0,0,0.04); overflow: hidden; }
+.win-bar { display: flex; align-items: center; gap: 6px; padding: 11px 14px; background: #fafafa; border-bottom: 1px solid #f0f0f0; font-size: 12px; color: #aaa; }
+.d-r,.d-y,.d-g { width: 10px; height: 10px; border-radius: 50%; }
+.d-r { background: #ff5f56; } .d-y { background: #ffbd2e; } .d-g { background: #27c93f; }
+.win-bar .title { margin-left: 8px; }
+.win-bar img.app-icon { width: 16px; height: 16px; margin-left: 6px; }
+.win-body { padding: 0; }
+
+/* ====== GMAIL ====== */
+.gm-sidebar { background: #f6f8fc; width: 60px; border-radius: 12px 0 0 12px; padding: 10px 0; text-align: center; }
+.gm-compose { background: #c2e7ff; width: 44px; height: 44px; border-radius: 16px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; }
+.gm-sidebar-icon { width: 24px; height: 24px; margin: 0 auto 14px; border-radius: 50%; background: #e8eaed; }
+.gm-main { flex: 1; background: #fff; border-radius: 0 12px 12px 0; overflow: hidden; }
+.gm-toolbar { padding: 8px 16px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; gap: 8px; font-size: 11px; color: #888; }
+.gm-subj { padding: 14px 20px 6px; font-size: 17px; font-weight: 400; color: #1d1a1a; }
+.gm-thread { padding: 0 20px; }
+.gm-email { padding: 14px 0; border-bottom: 1px solid #f5f5f5; }
+.gm-email-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.gm-email-av { width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: #fff; }
+.gm-email-name { font-size: 13px; font-weight: 600; color: #1d1a1a; }
+.gm-email-to { font-size: 11px; color: #aaa; }
+.gm-email-time { font-size: 11px; color: #aaa; margin-left: auto; }
+.gm-email-body { font-size: 14px; color: #444; line-height: 1.65; padding-left: 46px; }
+
+/* ====== LINKEDIN ====== */
+.li-topbar { background: #fff; padding: 8px 16px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #e8e8e8; width: 100%; }
+.li-search { flex: 1; background: #eef3f8; border-radius: 4px; padding: 6px 12px; font-size: 11px; color: #888; }
+.li-job { padding: 20px; }
+.li-job-header { display: flex; gap: 14px; margin-bottom: 14px; }
+.li-company-logo { width: 48px; height: 48px; border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.li-company-logo img { width: 100%; height: 100%; object-fit: contain; }
+.li-job-title { font-size: 17px; font-weight: 700; color: #1d1a1a; margin-bottom: 3px; }
+.li-job-company { font-size: 13px; color: #0a66c2; font-weight: 500; }
+.li-job-meta { font-size: 12px; color: #888; margin-top: 2px; }
+.li-job-meta span { margin-right: 12px; }
+.li-job-body { font-size: 13px; color: #555; line-height: 1.65; margin-top: 14px; }
+.li-tags { display: flex; gap: 6px; margin-top: 14px; flex-wrap: wrap; }
+.li-tag { font-size: 11px; background: #e8f0fe; color: #0a66c2; border-radius: 12px; padding: 3px 10px; font-weight: 500; }
+.li-apply-btn { display: inline-flex; align-items: center; gap: 6px; background: #0a66c2; color: #fff; border: none; border-radius: 20px; padding: 8px 20px; font-size: 13px; font-weight: 600; margin-top: 16px; }
+.li-save-btn { display: inline-flex; align-items: center; gap: 6px; background: #fff; color: #0a66c2; border: 1.5px solid #0a66c2; border-radius: 20px; padding: 7px 18px; font-size: 13px; font-weight: 600; margin-top: 16px; margin-left: 8px; }
+
+/* ====== SLACK ====== */
+.sl-sidebar { background: #3f0e40; padding: 12px; border-radius: 12px 0 0 12px; min-width: 170px; }
+.sl-workspace { color: #fff; font-weight: 700; font-size: 14px; margin-bottom: 14px; padding: 4px 0; display: flex; align-items: center; gap: 8px; }
+.sl-workspace img { width: 18px; height: 18px; }
+.sl-channel { padding: 4px 8px; border-radius: 4px; font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 2px; }
+.sl-channel.active { background: #1164a3; color: #fff; }
+.sl-channel::before { content: "# "; opacity: 0.5; }
+.sl-main { flex: 1; background: #fff; border-radius: 0 12px 12px 0; }
+.sl-header-bar { padding: 12px 16px; border-bottom: 1px solid #e8e8e8; font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 6px; }
+.sl-messages { padding: 16px; }
+.sl-msg { display: flex; gap: 10px; margin-bottom: 16px; }
+.sl-msg-av { width: 32px; height: 32px; border-radius: 6px; flex-shrink: 0; }
+.sl-msg-av.blue { background: linear-gradient(135deg, #4f46e5, #7c3aed); }
+.sl-msg-av.green { background: linear-gradient(135deg, #059669, #34d399); }
+.sl-msg-av.orange { background: linear-gradient(135deg, #ea580c, #fb923c); }
+.sl-msg-name { font-size: 12px; font-weight: 700; color: #1d1a1a; }
+.sl-msg-name span { font-weight: 400; color: #aaa; margin-left: 6px; font-size: 10px; }
+.sl-msg-text { font-size: 13px; color: #444; line-height: 1.5; margin-top: 2px; }
+.sl-input { margin: 0 16px 12px; border: 1px solid #ddd; border-radius: 8px; padding: 10px 14px; font-size: 13px; color: #333; }
+
+/* ====== NOTION ====== */
+.no-sidebar { background: #fbfbfa; width: 200px; border-radius: 12px 0 0 12px; padding: 10px; border-right: 1px solid #f0f0f0; }
+.no-ws { font-size: 12px; font-weight: 700; padding: 6px 8px; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+.no-ws img { width: 16px; height: 16px; }
+.no-item { font-size: 12px; color: #555; padding: 4px 8px; border-radius: 4px; margin-bottom: 1px; }
+.no-item.active { background: #f0f0f0; font-weight: 500; }
+
+/* ====== SHOPIFY ====== */
+.sh-sidebar { background: #1a1a1a; width: 56px; border-radius: 12px 0 0 12px; padding: 12px 0; text-align: center; }
+.sh-sidebar img { width: 28px; height: 28px; margin: 0 auto 16px; }
+.sh-sidebar-dot { width: 8px; height: 8px; border-radius: 50%; background: #333; margin: 0 auto 10px; }
+.sh-sidebar-dot.active { background: #96bf48; }
+.sh-main { flex: 1; background: #f6f6f7; border-radius: 0 12px 12px 0; }
+.sh-topbar { background: #1a1a1a; padding: 10px 16px; display: flex; align-items: center; gap: 10px; }
+.sh-topbar-search { flex: 1; background: #333; border-radius: 6px; padding: 6px 12px; font-size: 11px; color: #888; }
+.sh-content { padding: 20px; }
+.sh-card { background: #fff; border-radius: 10px; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 12px; }
+.sh-card-title { font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+.sh-product-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 12px; }
+.sh-product-row:last-child { border-bottom: none; }
+.sh-product-img { width: 40px; height: 40px; border-radius: 6px; background: #f0f0f0; flex-shrink: 0; }
+.sh-product-name { flex: 1; font-weight: 500; }
+.sh-product-price { color: #555; }
+.sh-product-status { font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+.sh-product-status.active { background: #e3f5e1; color: #1a7a1a; }
+.sh-product-status.draft { background: #fef3c7; color: #92400e; }
+
+/* ====== GOOGLE CALENDAR ====== */
+.gc-sidebar { width: 200px; background: #fff; border-right: 1px solid #f0f0f0; border-radius: 12px 0 0 12px; padding: 12px; }
+.gc-mini-month { font-size: 10px; color: #555; margin-bottom: 12px; }
+.gc-mini-title { font-size: 11px; font-weight: 700; margin-bottom: 6px; text-align: center; }
+.gc-mini-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; text-align: center; }
+.gc-mini-grid .day { font-size: 9px; padding: 3px 0; color: #888; }
+.gc-mini-grid .day.today { background: #1a73e8; color: #fff; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto; }
+.gc-main { flex: 1; background: #fff; border-radius: 0 12px 12px 0; }
+.gc-topbar { padding: 10px 16px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 400; color: #1d1a1a; }
+.gc-topbar img { width: 18px; height: 18px; }
+.gc-day-grid { padding: 0 16px; }
+.gc-hour { display: flex; border-bottom: 1px solid #f5f5f5; min-height: 48px; }
+.gc-hour-label { width: 50px; font-size: 10px; color: #aaa; padding-top: 4px; flex-shrink: 0; }
+.gc-hour-content { flex: 1; padding: 2px 0; position: relative; }
+.gc-event { border-radius: 4px; padding: 4px 8px; font-size: 11px; font-weight: 500; margin-bottom: 2px; }
+.gc-event.blue { background: #d3e3fd; color: #1a73e8; }
+.gc-event.green { background: #e6f4ea; color: #137333; }
+.gc-event.red { background: #fce8e6; color: #c5221f; }
+.gc-event.cue { background: #e8f0fe; color: #1a73e8; border: 1.5px dashed #1a73e8; }
+
+/* Generated content */
+.gen-box { background: #fff; border-radius: 14px; padding: 22px 26px; box-shadow: 0 2px 16px rgba(0,0,0,0.05); font-size: 14px; line-height: 1.7; color: #444; }
+.gen-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #2563eb; margin-bottom: 10px; }
+
+/* Cue Pill */
+.cue-pill { background: #1d1a1a; border-radius: 28px; padding: 12px 22px; color: #fff; display: inline-flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 500; box-shadow: 0 6px 24px rgba(0,0,0,0.18); }
+.waveform { display: flex; align-items: center; gap: 2.5px; height: 22px; }
+.waveform .bar { width: 3px; border-radius: 2px; background: #fff; animation: wave 0.8s ease-in-out infinite alternate; }
+.waveform .bar:nth-child(1){height:8px;animation-delay:0s}
+.waveform .bar:nth-child(2){height:18px;animation-delay:.1s}
+.waveform .bar:nth-child(3){height:12px;animation-delay:.2s}
+.waveform .bar:nth-child(4){height:22px;animation-delay:.15s}
+.waveform .bar:nth-child(5){height:10px;animation-delay:.25s}
+.waveform .bar:nth-child(6){height:16px;animation-delay:.05s}
+.waveform .bar:nth-child(7){height:7px;animation-delay:.3s}
+@keyframes wave { from{transform:scaleY(.4)}to{transform:scaleY(1)} }
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.3} }
+
+.badge { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 600; border-radius: 6px; padding: 5px 12px; }
+.badge.ok { background: #f0fdf4; color: #16a34a; }
+
+/* Before/After */
+.ba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.ba-box { border-radius: 12px; padding: 20px; }
+.ba-box.before { background: rgba(0,0,0,0.03); }
+.ba-box.after { background: #fff; box-shadow: 0 2px 16px rgba(0,0,0,0.05); }
+.ba-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
+.ba-box.before .ba-label { color: #ccc; }
+.ba-box.after .ba-label { color: #2563eb; }
+.strike { text-decoration: line-through; color: #ccc; }
+
+.cursor { display: inline-block; width: 2px; height: 15px; background: #2563eb; animation: blink 1s step-end infinite; margin-left: 2px; vertical-align: middle; }
+@keyframes blink { 50%{opacity:0} }
+
+/* Compare */
+.compare-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 800px; margin: 0 auto; }
+.cmp-box { border-radius: 18px; padding: 36px; text-align: center; }
+.cmp-box.before { background: #f5f5f5; }
+.cmp-box.after { background: #eff6ff; border: 1.5px solid #bfdbfe; }
+.cmp-label { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #bbb; margin-bottom: 10px; }
+.cmp-box.after .cmp-label { color: #2563eb; }
+.cmp-num { font-size: 64px; font-weight: 800; letter-spacing: -3px; line-height: 1; }
+.cmp-unit { font-size: 20px; font-weight: 500; color: #888; }
+.cmp-box.after .cmp-num { color: #2563eb; }
+.cmp-desc { font-size: 13px; color: #aaa; margin-top: 12px; line-height: 1.5; }
+.cmp-box.after .cmp-desc { color: #6b93d6; }
+
+.divider { border: none; border-top: 1px solid #f0f0f0; margin: 0 0 120px; }
+
+.check-icon { display: inline; }
+
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header"><h1>Cue — Scenario Design v4 (Real App Icons + Stronger Scenarios)</h1></div>
+
+<!-- ===================== -->
+<!-- EARN MORE             -->
+<!-- ===================== -->
+<div class="scene-section">
+  <h2>Make more money.</h2>
+  <p class="sub">Cue doesn't just save time. It helps you close deals, win gigs, and grow revenue.</p>
+</div>
+
+<!-- ===== SCENE 1: Close the deal faster (Gmail) ===== -->
+<div class="scene-block">
+  <div class="scene-header">
+    <h3>Close deals before they go cold</h3>
+    <div class="voice-cmd">"Accept the deal but negotiate 10% off for annual commitment"</div>
+  </div>
+
+  <div class="mockup-wrap">
+    <div class="win" style="display:flex; min-height: 440px;">
+      <div class="gm-sidebar">
+        <div class="gm-compose"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div>
+        <div class="gm-sidebar-icon"></div>
+        <div class="gm-sidebar-icon"></div>
+        <div class="gm-sidebar-icon"></div>
+      </div>
+      <div class="gm-main">
+        <div class="gm-toolbar">
+          <img src="https://cdn.simpleicons.org/gmail" width="16" height="16" alt="Gmail" style="margin-right: 4px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Inbox
+          <span style="margin-left: auto; color: #aaa;">1 of 38</span>
+        </div>
+        <div class="gm-subj">Re: Annual SaaS License — $48,000 proposal</div>
+        <div class="gm-thread">
+          <div class="gm-email">
+            <div class="gm-email-header">
+              <div class="gm-email-av" style="background: #e67c00;">M</div>
+              <div>
+                <div class="gm-email-name">Maria Santos <span style="font-weight:400; color:#888;">— Head of Procurement, Globex Inc</span></div>
+                <div class="gm-email-to">to me</div>
+              </div>
+              <div class="gm-email-time">9:17 AM</div>
+            </div>
+            <div class="gm-email-body">
+              Hi Alex,<br><br>
+              We're ready to move forward with the annual license. The $48,000/year pricing works for us, and we'd like to start onboarding next Monday.<br><br>
+              One question: is there any flexibility on pricing if we commit to a 2-year term?<br><br>
+              Best,<br>Maria
+            </div>
+          </div>
+          <div class="gm-email" style="border-bottom: none; background: #f0f7ff; border-radius: 12px; margin: 8px -8px; padding: 16px 20px;">
+            <div style="display:flex; align-items:center; gap: 8px; margin-bottom: 10px;">
+              <div class="gen-label" style="margin: 0;">Cue drafted</div>
+              <div class="badge ok" style="margin-left: auto;"><svg class="check-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> Ready</div>
+            </div>
+            <div style="font-size:14px; color:#333; line-height:1.65;">
+              Hi Maria,<br><br>
+              Great — we're excited to get started! For a 2-year commitment, I can offer <strong>10% off</strong>, bringing it to <strong>$43,200/year</strong>. That locks in your rate and gives your team priority support.<br><br>
+              I'll have the updated contract ready by EOD. Want to schedule a quick call to finalize?<br><br>
+              Best,<br>Alex<span class="cursor"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top: 20px;">
+      <div class="cue-pill">
+        <div class="waveform"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div>
+        "Accept but offer 10% off for 2-year deal"
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-footer">
+    <div class="result"><svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> $86,400 deal — replied in 3 seconds instead of 30 minutes</div>
+    <div class="money-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> Reply speed = close rate</div>
+  </div>
+</div>
+
+<!-- ===== SCENE 2: Win gigs (LinkedIn) ===== -->
+<div class="scene-block">
+  <div class="scene-header">
+    <h3>Apply to jobs 5x faster</h3>
+    <div class="voice-cmd">"Apply to this, highlight my React experience and the fintech project"</div>
+  </div>
+
+  <div class="mockup-wrap">
+    <div class="mockup-inner two">
+      <div class="win">
+        <div class="win-bar" style="padding: 0;">
+          <div class="li-topbar">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            <div class="li-search">Search jobs...</div>
+          </div>
+        </div>
+        <div class="li-job">
+          <div class="li-job-header">
+            <div class="li-company-logo" style="background: #1d1a1a; border-radius: 8px;">
+              <svg width="28" height="28" viewBox="0 0 100 100" fill="none"><path d="M70 30 C70 30 55 50 50 55 C45 50 30 30 30 30" stroke="#fff" stroke-width="8" stroke-linecap="round"/><circle cx="72" cy="28" r="5" fill="#fff"/></svg>
+            </div>
+            <div>
+              <div class="li-job-title">Co-founder / CTO</div>
+              <div class="li-job-company">Cue (heycue.io) · San Francisco, CA (Remote OK)</div>
+              <div class="li-job-meta"><span>Equity + Salary</span><span>Co-founder</span><span>Posted 3d ago</span></div>
+            </div>
+          </div>
+          <div class="li-job-body">
+            Cue is the voice OS for your desktop — press a key, speak, and an AI agent sees your screen and gets things done. 10k+ beta users, growing 30% month-over-month. Backed by Sophon LLC (SF).<br><br>
+            We need a technical co-founder to own the full stack: Electron + React desktop app, real-time voice pipeline (STT/TTS), AI agent orchestration, and cloud infra. You'll shape the product and the company.<br><br>
+            <strong>You:</strong> shipped production desktop/AI products, can go from prototype to scale, obsessed with voice-first UX.
+          </div>
+          <div class="li-tags">
+            <span class="li-tag">Electron</span><span class="li-tag">AI Agent</span><span class="li-tag">Voice AI</span><span class="li-tag">Full Stack</span>
+          </div>
+          <div>
+            <button class="li-apply-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg> Easy Apply</button>
+            <button class="li-save-btn">Save</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <div class="gen-box" style="flex: 1;">
+          <div class="gen-label">Generated application</div>
+          Hi — I've been following Cue since the beta and this is the exact product I'd build if I started a company tomorrow.<br><br>
+          Background: 8 years full stack, last 3 as CTO at a Series A dev tools startup (Electron + React, 50k DAU). Built our real-time collab engine from scratch — WebSocket, CRDT, sub-100ms latency. Shipped native macOS integrations (Accessibility API, system audio capture, hardware key hooks).<br><br>
+          Before that: ML infra at Google (speech recognition pipeline, 2 years). I understand both the AI and the desktop-native side.<br><br>
+          Why Cue: voice-first is the right bet. Keyboards were designed for typewriters. I want to help build what replaces them.<br><br>
+          Open to relocate to SF. Let's talk.<span class="cursor"></span>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <div class="badge ok" style="font-size: 13px; padding: 8px 16px;"><svg class="check-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> Ready to submit via Easy Apply</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-footer">
+    <div class="result"><svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> Tailored application from job post + your resume in 4.8s</div>
+    <div class="money-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> 5x more applications = 2x more interviews</div>
+  </div>
+</div>
+
+<!-- ===== SCENE 3: Optimize Shopify listings ===== -->
+<div class="scene-block">
+  <div class="scene-header">
+    <h3>Write listings that convert</h3>
+    <div class="voice-cmd">"Rewrite this product listing — make it more compelling, add urgency"</div>
+  </div>
+
+  <div class="mockup-wrap">
+    <div class="mockup-inner two">
+      <!-- Shopify admin -->
+      <div class="win" style="display: flex; min-height: 380px;">
+        <div class="sh-sidebar">
+          <img src="https://cdn.simpleicons.org/shopify/96bf48" width="28" height="28" alt="Shopify" style="display:block; margin: 0 auto 16px;">
+          <div class="sh-sidebar-dot active"></div>
+          <div class="sh-sidebar-dot"></div>
+          <div class="sh-sidebar-dot"></div>
+          <div class="sh-sidebar-dot"></div>
+        </div>
+        <div class="sh-main">
+          <div class="sh-topbar">
+            <span style="color: #fff; font-size: 12px; font-weight: 600;">My Store</span>
+            <div class="sh-topbar-search">Search...</div>
+          </div>
+          <div class="sh-content">
+            <div class="sh-card">
+              <div class="sh-card-title">Product: Ceramic Pour-Over Set</div>
+              <div style="font-size: 12px; color: #666; line-height: 1.6; padding: 8px 0; border-bottom: 1px solid #f0f0f0;">
+                <strong>Current description:</strong><br>
+                <span style="color: #999;">Handmade ceramic pour-over coffee dripper. Comes with filter and stand. Available in white and black. Good for 2-4 cups.</span>
+              </div>
+              <div style="display: flex; gap: 16px; padding-top: 8px; font-size: 11px; color: #888;">
+                <span>Price: $68</span>
+                <span>Stock: 23 units</span>
+                <span>Views: 342/week</span>
+                <span style="color: #c5221f; font-weight: 600;">Conv: 1.2%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Optimized listing -->
+      <div class="gen-box" style="align-self: stretch; display: flex; flex-direction: column;">
+        <div class="gen-label">Optimized listing</div>
+        <div style="flex: 1; font-size: 14px; line-height: 1.7; color: #333;">
+          <strong style="font-size: 16px;">Artisan Ceramic Pour-Over Set — Brew Coffee That Tastes Like a $7 Latte</strong><br><br>
+          Hand-thrown by Japanese-trained ceramicists. Each piece is unique — subtle variations that make it yours.<br><br>
+          &bull; Precision-drilled 36-hole filter bed for even extraction<br>
+          &bull; Thermal-shock resistant — won't crack with boiling water<br>
+          &bull; Includes reusable stainless filter (skip the paper forever)<br><br>
+          Available in Matte White and Ink Black. Makes 2-4 cups of the best coffee you've had at home.<br><br>
+          <span style="color: #c5221f; font-weight: 600;">Only 23 left — restocking in 6 weeks.</span><span class="cursor"></span>
+        </div>
+        <div style="margin-top: 14px; display: flex; gap: 12px; align-items: center;">
+          <div class="badge ok"><svg class="check-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> SEO keywords added</div>
+          <span style="font-size: 11px; color: #888;">Est. conversion: 1.2% → 3.5%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-footer">
+    <div class="result"><svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> Boring listing → compelling copy with SEO + urgency</div>
+    <div class="money-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> Better copy = higher conversion = more sales</div>
+  </div>
+</div>
+
+<!-- ===== SCENE 4: Stock analysis / Earnings call ===== -->
+<div class="scene-block">
+  <div class="scene-header">
+    <h3>Smarter investment decisions</h3>
+    <div class="voice-cmd">"Analyze this earnings report — give me FCF trend and red flags"</div>
+  </div>
+
+  <div class="mockup-wrap">
+    <div class="mockup-inner two">
+      <!-- Yahoo Finance / earnings page mock -->
+      <div class="win">
+        <div class="win-bar">
+          <div class="d-r"></div><div class="d-y"></div><div class="d-g"></div>
+          <span style="margin-left: 8px;">Chrome — finance.yahoo.com/AAPL</span>
+        </div>
+        <div style="padding: 20px;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+            <div style="width: 40px; height: 40px; border-radius: 10px; background: #000; display: flex; align-items: center; justify-content: center;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            </div>
+            <div>
+              <div style="font-size: 18px; font-weight: 700;">AAPL <span style="font-weight: 400; color: #888;">Apple Inc.</span></div>
+              <div style="font-size: 22px; font-weight: 800; color: #16a34a;">$198.52 <span style="font-size: 13px; font-weight: 500;">+2.3%</span></div>
+            </div>
+          </div>
+          <div style="font-size: 12px; font-weight: 600; color: #555; margin-bottom: 8px;">Q2 2026 Earnings Summary</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 11px;">
+            <div style="background: #f8f8f8; border-radius: 8px; padding: 10px;">
+              <div style="color: #888;">Revenue</div>
+              <div style="font-size: 16px; font-weight: 700;">$94.8B</div>
+              <div style="color: #16a34a; font-size: 10px;">+5% YoY</div>
+            </div>
+            <div style="background: #f8f8f8; border-radius: 8px; padding: 10px;">
+              <div style="color: #888;">Net Income</div>
+              <div style="font-size: 16px; font-weight: 700;">$24.2B</div>
+              <div style="color: #16a34a; font-size: 10px;">+8% YoY</div>
+            </div>
+            <div style="background: #f8f8f8; border-radius: 8px; padding: 10px;">
+              <div style="color: #888;">Free Cash Flow</div>
+              <div style="font-size: 16px; font-weight: 700;">$28.1B</div>
+              <div style="color: #16a34a; font-size: 10px;">+12% YoY</div>
+            </div>
+            <div style="background: #f8f8f8; border-radius: 8px; padding: 10px;">
+              <div style="color: #888;">EPS</div>
+              <div style="font-size: 16px; font-weight: 700;">$1.58</div>
+              <div style="color: #888; font-size: 10px;">Beat est. $1.52</div>
+            </div>
+          </div>
+          <div style="margin-top: 10px; font-size: 11px; color: #888; line-height: 1.5;">
+            Earnings call transcript: Tim Cook highlighted AI integration across all devices, Services revenue hit all-time high of $24.2B...
+          </div>
+        </div>
+      </div>
+
+      <!-- Cue's analysis with chart -->
+      <div class="gen-box" style="align-self: stretch; display: flex; flex-direction: column;">
+        <div class="gen-label">Cue's analysis</div>
+
+        <!-- FCF Trend Bar Chart -->
+        <div style="margin-bottom: 20px;">
+          <div style="font-size: 13px; font-weight: 700; color: #333; margin-bottom: 12px;">Free Cash Flow Trend</div>
+          <div style="display: flex; align-items: flex-end; gap: 8px; height: 120px; padding-bottom: 24px; border-bottom: 1px solid #f0f0f0; position: relative;">
+            <!-- Y axis labels -->
+            <div style="position: absolute; left: -4px; top: 0; font-size: 9px; color: #bbb;">$30B</div>
+            <div style="position: absolute; left: -4px; top: 45px; font-size: 9px; color: #bbb;">$25B</div>
+            <!-- Bars -->
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;">
+              <div style="width: 100%; max-width: 36px; background: #e0e7ff; border-radius: 4px 4px 0 0; height: 58px;"></div>
+              <div style="font-size: 9px; color: #888; position: absolute; bottom: 4px;">Q2'25</div>
+            </div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;">
+              <div style="width: 100%; max-width: 36px; background: #c7d2fe; border-radius: 4px 4px 0 0; height: 68px;"></div>
+              <div style="font-size: 9px; color: #888; position: absolute; bottom: 4px;">Q3'25</div>
+            </div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;">
+              <div style="width: 100%; max-width: 36px; background: #a5b4fc; border-radius: 4px 4px 0 0; height: 78px;"></div>
+              <div style="font-size: 9px; color: #888; position: absolute; bottom: 4px;">Q4'25</div>
+            </div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;">
+              <div style="width: 100%; max-width: 36px; background: #818cf8; border-radius: 4px 4px 0 0; height: 75px;"></div>
+              <div style="font-size: 9px; color: #888; position: absolute; bottom: 4px;">Q1'26</div>
+            </div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;">
+              <div style="width: 100%; max-width: 36px; background: linear-gradient(180deg, #16a34a, #22c55e); border-radius: 4px 4px 0 0; height: 88px; position: relative;">
+                <div style="position: absolute; top: -18px; left: 50%; transform: translateX(-50%); font-size: 10px; font-weight: 700; color: #16a34a; white-space: nowrap;">$28.1B</div>
+              </div>
+              <div style="font-size: 9px; color: #16a34a; font-weight: 700; position: absolute; bottom: 4px;">Q2'26</div>
+            </div>
+            <!-- Trend line (SVG overlay) -->
+            <svg style="position: absolute; left: 0; top: 0; width: 100%; height: calc(100% - 24px);" viewBox="0 0 500 96" preserveAspectRatio="none" fill="none">
+              <polyline points="50,38 150,28 250,18 350,21 450,8" stroke="#2563eb" stroke-width="2" stroke-dasharray="6,4" fill="none"/>
+              <circle cx="450" cy="8" r="4" fill="#2563eb"/>
+            </svg>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 9px; color: #888; margin-top: 6px; padding: 0 10px;">
+            <span>$22.8B</span><span>$25.1B</span><span>$27.3B</span><span>$26.9B</span><span style="color: #16a34a; font-weight: 700;">$28.1B</span>
+          </div>
+          <div style="text-align: center; font-size: 11px; color: #16a34a; font-weight: 600; margin-top: 6px;">↑ 23% growth over 5 quarters</div>
+        </div>
+
+        <!-- Signal summary -->
+        <div style="font-size: 13px; line-height: 1.7; color: #333;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px;">
+            <div style="background: #f0fdf4; border-radius: 8px; padding: 10px 12px;">
+              <div style="font-size: 10px; font-weight: 700; color: #16a34a; margin-bottom: 4px;">BULLISH</div>
+              <div style="font-size: 12px; color: #333; line-height: 1.5;">
+                &bull; Services margin 72%<br>
+                &bull; AI driving upgrades<br>
+                &bull; FCF/share ATH
+              </div>
+            </div>
+            <div style="background: #fef2f2; border-radius: 8px; padding: 10px 12px;">
+              <div style="font-size: 10px; font-weight: 700; color: #c5221f; margin-bottom: 4px;">RED FLAGS</div>
+              <div style="font-size: 12px; color: #333; line-height: 1.5;">
+                &bull; China rev -4%<br>
+                &bull; iPhone growth flat<br>
+                &bull; R&D +18% (Vision Pro)
+              </div>
+            </div>
+          </div>
+          <div style="background: #f8f8f8; border-radius: 8px; padding: 10px 12px; font-size: 12px;">
+            <strong>Verdict:</strong> Strong cash machine. Services-dependent growth. <span style="color: #2563eb; font-weight: 600;">Hold — add on dips below $185.</span><span class="cursor"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Portfolio P&L Card — full-width dark broker-style -->
+    <div style="margin-top: 20px; background: #0a0a0a; border-radius: 16px; padding: 28px 32px; color: #fff; display: grid; grid-template-columns: 1fr 1.4fr; gap: 32px; align-items: center;">
+      <!-- Left: ticker + P&L + details -->
+      <div>
+        <!-- Ticker header -->
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px;">
+          <div style="width: 44px; height: 44px; border-radius: 12px; background: #1a1a2e; display: flex; align-items: center; justify-content: center;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          </div>
+          <div>
+            <div style="font-size: 18px; font-weight: 700;">AAPL <span style="font-weight: 400; color: #666; font-size: 14px;">200 Shares</span></div>
+            <div style="font-size: 13px; color: #4ade80; font-weight: 500;">$198.52 today</div>
+          </div>
+        </div>
+        <!-- Big P&L -->
+        <div style="font-size: 42px; font-weight: 800; letter-spacing: -1.5px; color: #fff; margin-bottom: 4px;">+$4,704.00</div>
+        <div style="font-size: 15px; color: #4ade80; font-weight: 600; margin-bottom: 20px;">
+          ↑ $23.52 per share &nbsp;·&nbsp; +13.45% &nbsp;<span style="color: #666; font-weight: 400;">all time</span>
+        </div>
+        <!-- Position details -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px 28px; font-size: 13px;">
+          <div>
+            <div style="color: #555; font-size: 11px; margin-bottom: 2px;">Total value</div>
+            <div style="font-weight: 700; color: #fff;">$39,704.00</div>
+          </div>
+          <div>
+            <div style="color: #555; font-size: 11px; margin-bottom: 2px;">Total return</div>
+            <div style="font-weight: 700; color: #4ade80;">+$4,704.00</div>
+          </div>
+          <div>
+            <div style="color: #555; font-size: 11px; margin-bottom: 2px;">Avg. cost</div>
+            <div style="font-weight: 700; color: #fff;">$175.00</div>
+          </div>
+          <div>
+            <div style="color: #555; font-size: 11px; margin-bottom: 2px;">Today's P&L</div>
+            <div style="font-weight: 700; color: #4ade80;">+$460.00 (+1.17%)</div>
+          </div>
+        </div>
+      </div>
+      <!-- Right: chart + Cue badge -->
+      <div>
+        <!-- Sparkline chart (larger) -->
+        <div style="position: relative; height: 140px; background: #111; border-radius: 12px; overflow: hidden; margin-bottom: 12px;">
+          <svg width="100%" height="140" viewBox="0 0 500 140" preserveAspectRatio="none" fill="none">
+            <defs>
+              <linearGradient id="plGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#4ade80" stop-opacity="0.3"/>
+                <stop offset="100%" stop-color="#4ade80" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <path d="M0,120 L25,116 50,110 75,105 100,98 125,95 150,88 175,92 200,82 225,76 250,72 275,68 300,60 325,54 350,50 375,42 400,36 425,28 450,22 475,16 500,12 L500,140 L0,140 Z" fill="url(#plGrad)"/>
+            <polyline points="0,120 25,116 50,110 75,105 100,98 125,95 150,88 175,92 200,82 225,76 250,72 275,68 300,60 325,54 350,50 375,42 400,36 425,28 450,22 475,16 500,12" stroke="#4ade80" stroke-width="2.5" fill="none"/>
+            <circle cx="500" cy="12" r="5" fill="#4ade80"/>
+          </svg>
+          <!-- Period labels -->
+          <div style="position: absolute; bottom: 8px; left: 16px; right: 16px; display: flex; justify-content: space-between; font-size: 10px; color: #444;">
+            <span>Oct '25</span><span>Dec</span><span>Feb '26</span><span>Apr</span>
+          </div>
+          <!-- Current price label -->
+          <div style="position: absolute; top: 6px; right: 12px; font-size: 11px; color: #4ade80; font-weight: 700;">$198.52</div>
+          <div style="position: absolute; top: 20px; right: 12px; font-size: 10px; color: #4ade80;">6M ↑ 13.45%</div>
+          <!-- Buy-in price line -->
+          <div style="position: absolute; bottom: 30px; left: 0; right: 0; border-top: 1px dashed #333; height: 0;"></div>
+          <div style="position: absolute; bottom: 32px; left: 12px; font-size: 9px; color: #555;">Avg. cost $175</div>
+        </div>
+        <!-- Cue attribution -->
+        <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: #555;">
+          <div style="width: 20px; height: 20px; background: #2563eb; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="#fff"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <span>Bought based on Cue's FCF analysis — 3 months ago</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-footer">
+    <div class="result"><svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> Earnings data + FCF analysis + red flags in 6 seconds</div>
+    <div class="money-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> +$4,704 profit — Cue found the signal in 6 seconds</div>
+  </div>
+</div>
+
+<!-- ===== SCENE 5: Slack → LinkedIn content ===== -->
+<div class="scene-block">
+  <div class="scene-header">
+    <h3>Turn team wins into content</h3>
+    <div class="voice-cmd">"Turn this Slack thread into a LinkedIn post — celebrate the team"</div>
+  </div>
+
+  <div class="mockup-wrap">
+    <div class="mockup-inner two">
+      <div class="win" style="display: flex; min-height: 380px;">
+        <div class="sl-sidebar">
+          <div class="sl-workspace">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zm1.271 0a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zm0 1.271a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zm10.122 2.521a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zm-1.268 0a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zm-2.523 10.122a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zm0-1.268a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.528 2.528 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"/></svg>
+            Acme Inc
+          </div>
+          <div class="sl-channel">general</div>
+          <div class="sl-channel active">wins</div>
+          <div class="sl-channel">engineering</div>
+          <div class="sl-channel">random</div>
+        </div>
+        <div class="sl-main" style="flex: 1;">
+          <div class="sl-header-bar"># wins</div>
+          <div class="sl-messages">
+            <div class="sl-msg"><div class="sl-msg-av blue"></div><div><div class="sl-msg-name">Sarah Chen <span>11:23 AM</span></div><div class="sl-msg-text">Just shipped AI pricing! Early data: conversion up 23% in 48 hours. Biggest win this quarter.</div></div></div>
+            <div class="sl-msg"><div class="sl-msg-av green"></div><div><div class="sl-msg-name">Marcus Lee <span>11:25 AM</span></div><div class="sl-msg-text">Dynamic pricing model took 3 months but already paying off. Users love that it adjusts to their usage.</div></div></div>
+            <div class="sl-msg"><div class="sl-msg-av orange"></div><div><div class="sl-msg-name">Priya Patel <span>11:28 AM</span></div><div class="sl-msg-text">Support tickets about pricing dropped 40% too. When pricing makes sense, people stop complaining.</div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gen-box" style="align-self: stretch; display: flex; flex-direction: column;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 14px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          <div class="gen-label" style="margin: 0;">LinkedIn Draft</div>
+        </div>
+        <div style="flex: 1; font-size: 14px; line-height: 1.75; color: #333;">
+          We shipped AI-powered dynamic pricing last week.<br><br>
+          48 hours later:<br>
+          &bull; Conversions up 23%<br>
+          &bull; Support tickets down 40%<br>
+          &bull; Zero negative feedback<br><br>
+          The insight: when pricing adapts to how people use your product, they stop seeing it as a cost and start seeing it as fair.<br><br>
+          Took us 3 months. Worth every sprint.<br><br>
+          Shoutout to Sarah, Marcus, and Priya for making it happen.<span class="cursor"></span>
+        </div>
+        <div style="margin-top: 14px;"><div class="badge ok"><svg class="check-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> Copied to clipboard</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-footer">
+    <div class="result"><svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> Internal win → public content in 3 seconds</div>
+    <div class="money-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> Content builds trust → trust builds pipeline</div>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- ===================== -->
+<!-- SAVE TIME             -->
+<!-- ===================== -->
+<div class="scene-section">
+  <h2>Save hours every day.</h2>
+  <p class="sub">The boring tasks that eat your day? Speak and done.</p>
+</div>
+
+<!-- ===== SCENE 5: Rewrite (Notion) ===== -->
+<div class="scene-block">
+  <div class="scene-header">
+    <h3>Rewrite anything, in place</h3>
+    <div class="voice-cmd">"Make this professional — it's going to the board"</div>
+  </div>
+
+  <div class="mockup-wrap">
+    <div class="win" style="display: flex; min-height: 360px;">
+      <div class="no-sidebar">
+        <div class="no-ws"><img src="https://cdn.simpleicons.org/notion/000" width="16" height="16"> Acme Inc</div>
+        <div class="no-item">Q2 Roadmap</div>
+        <div class="no-item active">Board Update</div>
+        <div class="no-item">Team Wiki</div>
+        <div class="no-item">Design System</div>
+      </div>
+      <div style="flex:1; padding: 24px 32px; background: #fff; border-radius: 0 12px 12px 0;">
+        <div style="font-size: 28px; font-weight: 700; margin-bottom: 20px;">Q2 Board Update</div>
+        <div class="ba-grid">
+          <div class="ba-box before">
+            <div class="ba-label">Your draft</div>
+            <div style="font-size:14px; color:#888; line-height:1.7;">
+              <span class="strike">Hey team, so basically</span> we had a pretty <span class="strike">good</span> quarter <span class="strike">I think</span>. Revenue went up <span class="strike">a lot</span> and we got <span class="strike">some</span> new enterprise customers <span class="strike">which is cool</span>. Churn is <span class="strike">kinda</span> low.
+            </div>
+          </div>
+          <div class="ba-box after">
+            <div class="ba-label">Cue rewrote</div>
+            <div style="font-size:14px; color:#333; line-height:1.7;">
+              Q2 was a strong quarter. Revenue grew 34% YoY, driven by 12 new enterprise accounts including 3 Fortune 500 companies. Net revenue retention hit 115% with monthly churn at 1.2%.<span class="cursor"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top: 20px;">
+      <div class="cue-pill"><div class="waveform"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div> "Make it board-ready"</div>
+    </div>
+  </div>
+
+  <div class="scene-footer">
+    <div class="result"><svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> Rewritten in place, 1.8 seconds</div>
+  </div>
+</div>
+
+<!-- ===== SCENE 6: Translate EN→CN (Slack) ===== -->
+<div class="scene-block">
+  <div class="scene-header">
+    <h3>Think in English, reply in Chinese</h3>
+    <div class="voice-cmd">"Tell him we're interested but need to discuss budget — in Chinese"</div>
+  </div>
+
+  <div class="mockup-wrap">
+    <div class="mockup-inner stack">
+      <div class="win" style="display: flex; min-height: 300px;">
+        <div class="sl-sidebar" style="min-width: 160px;">
+          <div class="sl-workspace"><svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zm1.271 0a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zm0 1.271a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zm10.122 2.521a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zm-1.268 0a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zm-2.523 10.122a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zm0-1.268a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.528 2.528 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"/></svg> Work DMs</div>
+          <div class="sl-channel active" style="font-size: 11px;">&nbsp;Wei Zhang</div>
+          <div class="sl-channel" style="font-size: 11px;">&nbsp;Sarah Chen</div>
+          <div class="sl-channel" style="font-size: 11px;">&nbsp;Tokyo Team</div>
+        </div>
+        <div class="sl-main" style="flex: 1;">
+          <div class="sl-header-bar" style="font-size: 13px;">Wei Zhang <span style="font-weight: 400; color: #888; font-size: 11px;">— BD Lead, Shanghai</span></div>
+          <div class="sl-messages">
+            <div class="sl-msg">
+              <div class="sl-msg-av blue"></div>
+              <div>
+                <div class="sl-msg-name">Wei Zhang <span>3:14 PM</span></div>
+                <div class="sl-msg-text">Alex，方案已经更新完了，APAC扩展的预算和范围都在附件里。时间线的话Q3最理想，你看看方便的话我们约个电话聊？</div>
+              </div>
+            </div>
+          </div>
+          <div class="sl-input" style="background: #f0f7ff; border-color: #bfdbfe;">
+            <div style="font-size: 10px; color: #2563eb; font-weight: 600; margin-bottom: 4px;">CUE TRANSLATED YOUR ENGLISH TO CHINESE:</div>
+            我们对这个方案很感兴趣，范围看起来不错。不过预算部分我们还需要进一步讨论。下周安排个电话会议聊一下细节，你看怎么样？<span class="cursor"></span>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center; margin-top: 16px;">
+        <div class="cue-pill"><div class="waveform"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div> "Tell him we're interested, discuss budget next week"</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-footer">
+    <div class="result"><svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> Speak English → Chinese reply in Slack, tone-matched</div>
+    <div class="meta">1.4 seconds · Fast path</div>
+  </div>
+</div>
+
+<!-- ===== SCENE 7: Schedule Meeting (Google Calendar) ===== -->
+<div class="scene-block">
+  <div class="scene-header">
+    <h3>Schedule without the back-and-forth</h3>
+    <div class="voice-cmd">"Find a free slot Thursday afternoon and book a 30-min call with Maria"</div>
+  </div>
+
+  <div class="mockup-wrap">
+    <div class="win" style="display: flex; min-height: 380px;">
+      <div class="gc-sidebar">
+        <div style="display: flex; align-items: center; gap: 6px; padding: 4px 0 12px;">
+          <img src="https://cdn.simpleicons.org/googlecalendar" width="18" height="18" alt="Google Calendar">
+          <span style="font-size: 13px; font-weight: 500; color: #555;">Calendar</span>
+        </div>
+        <div class="gc-mini-month">
+          <div class="gc-mini-title">April 2026</div>
+          <div class="gc-mini-grid">
+            <div class="day" style="font-weight:600;color:#555;">M</div><div class="day" style="font-weight:600;color:#555;">T</div><div class="day" style="font-weight:600;color:#555;">W</div><div class="day" style="font-weight:600;color:#555;">T</div><div class="day" style="font-weight:600;color:#555;">F</div><div class="day" style="font-weight:600;color:#555;">S</div><div class="day" style="font-weight:600;color:#555;">S</div>
+            <div class="day"></div><div class="day"></div><div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div><div class="day">5</div>
+            <div class="day">6</div><div class="day">7</div><div class="day">8</div><div class="day">9</div><div class="day">10</div><div class="day">11</div><div class="day">12</div>
+            <div class="day"><div class="today">13</div></div><div class="day">14</div><div class="day">15</div><div class="day" style="font-weight:600;color:#1a73e8;">16</div><div class="day">17</div><div class="day">18</div><div class="day">19</div>
+          </div>
+        </div>
+        <div style="font-size: 10px; color: #888; margin-top: 10px;">My calendars</div>
+        <div style="font-size: 11px; color: #555; padding: 4px 0; display: flex; align-items: center; gap: 4px;"><div style="width:8px;height:8px;border-radius:2px;background:#1a73e8;"></div> Work</div>
+        <div style="font-size: 11px; color: #555; padding: 4px 0; display: flex; align-items: center; gap: 4px;"><div style="width:8px;height:8px;border-radius:2px;background:#137333;"></div> Personal</div>
+      </div>
+      <div class="gc-main">
+        <div class="gc-topbar">Thursday, April 16</div>
+        <div class="gc-day-grid">
+          <div class="gc-hour"><div class="gc-hour-label">9 AM</div><div class="gc-hour-content"><div class="gc-event blue">Team standup (9:00-9:30)</div></div></div>
+          <div class="gc-hour"><div class="gc-hour-label">10 AM</div><div class="gc-hour-content"><div class="gc-event blue">Design review (10:00-11:00)</div></div></div>
+          <div class="gc-hour"><div class="gc-hour-label">11 AM</div><div class="gc-hour-content"></div></div>
+          <div class="gc-hour"><div class="gc-hour-label">12 PM</div><div class="gc-hour-content"><div class="gc-event green">Lunch with David (12:00-1:00)</div></div></div>
+          <div class="gc-hour"><div class="gc-hour-label">1 PM</div><div class="gc-hour-content"><div class="gc-event blue">Sprint planning (1:00-2:30)</div></div></div>
+          <div class="gc-hour"><div class="gc-hour-label">2 PM</div><div class="gc-hour-content"></div></div>
+          <div class="gc-hour"><div class="gc-hour-label">3 PM</div><div class="gc-hour-content"><div class="gc-event cue">📞 Call with Maria Santos (3:00-3:30) <span style="font-size:9px;opacity:0.7;">— added by Cue</span></div></div></div>
+          <div class="gc-hour"><div class="gc-hour-label">4 PM</div><div class="gc-hour-content"></div></div>
+          <div class="gc-hour"><div class="gc-hour-label">5 PM</div><div class="gc-hour-content"><div class="gc-event red">Wrap-up (5:00-5:30)</div></div></div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top: 20px;">
+      <div class="cue-pill"><div class="waveform"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div> "Book Maria Thursday afternoon, 30 minutes"</div>
+    </div>
+  </div>
+
+  <div class="scene-footer">
+    <div class="result"><svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> Found free slot, created event, sent invite — all by voice</div>
+    <div class="meta">3.2 seconds · Agent</div>
+  </div>
+</div>
+
+<!-- ===== SCENE 8: Video Download (YouTube / TikTok / Instagram) ===== -->
+<div class="scene-block">
+  <div class="scene-header">
+    <h3>Download any video, instantly</h3>
+    <div class="voice-cmd">"Download this video in 1080p"</div>
+  </div>
+
+  <div class="mockup-wrap">
+    <div class="mockup-inner two">
+      <!-- YouTube player mock -->
+      <div class="win">
+        <div class="win-bar">
+          <div class="d-r"></div><div class="d-y"></div><div class="d-g"></div>
+          <span style="margin-left: 8px;">
+            <svg width="16" height="12" viewBox="0 0 24 18" style="vertical-align: middle;">
+              <path d="M23.5 3.5a3 3 0 00-2.1-2.1C19.5.9 12 .9 12 .9s-7.5 0-9.4.5A3 3 0 00.5 3.5 31.5 31.5 0 000 9a31.5 31.5 0 00.5 5.5 3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1A31.5 31.5 0 0024 9a31.5 31.5 0 00-.5-5.5z" fill="#FF0000"/>
+              <path d="M9.6 12.5V5.3l6.4 3.6-6.4 3.6z" fill="#fff"/>
+            </svg>
+            Chrome — youtube.com
+          </span>
+        </div>
+        <div style="padding: 0;">
+          <!-- Video thumbnail area -->
+          <div style="background: #0f0f0f; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; position: relative;">
+            <!-- Gradient background to simulate video frame -->
+            <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); display: flex; align-items: center; justify-content: center;">
+              <div style="text-align: center; color: #fff;">
+                <div style="font-size: 48px; opacity: 0.3;">▶</div>
+              </div>
+            </div>
+            <!-- Duration badge -->
+            <div style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.8); color: #fff; font-size: 11px; padding: 2px 6px; border-radius: 3px; font-weight: 500;">14:32</div>
+          </div>
+          <!-- Video title & channel -->
+          <div style="padding: 14px 16px; background: #fff;">
+            <div style="font-size: 15px; font-weight: 600; color: #0f0f0f; line-height: 1.4; margin-bottom: 6px;">How to Build a $10M SaaS in 2026 — Full Breakdown</div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <div style="width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, #667eea, #764ba2); flex-shrink: 0;"></div>
+              <div>
+                <div style="font-size: 12px; font-weight: 600; color: #333;">Greg Isenberg</div>
+                <div style="font-size: 11px; color: #888;">1.2M subscribers · 342K views</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cue download panel -->
+      <div class="gen-box" style="align-self: stretch; display: flex; flex-direction: column;">
+        <div class="gen-label">Cue downloaded</div>
+
+        <!-- Downloaded file card -->
+        <div style="background: #f8faf8; border: 1.5px solid #dcfce7; border-radius: 12px; padding: 16px; margin-bottom: 16px;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+            <div style="width: 44px; height: 44px; border-radius: 10px; background: #16a34a; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            </div>
+            <div style="flex: 1; min-width: 0;">
+              <div style="font-size: 13px; font-weight: 600; color: #1d1a1a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">How-to-Build-10M-SaaS-2026.mp4</div>
+              <div style="font-size: 11px; color: #888;">1080p · 287 MB · ~/Downloads</div>
+            </div>
+            <div style="font-size: 11px; font-weight: 700; color: #16a34a; white-space: nowrap;">Done ✓</div>
+          </div>
+          <!-- Progress bar (complete) -->
+          <div style="height: 4px; background: #e5e7eb; border-radius: 2px; overflow: hidden;">
+            <div style="width: 100%; height: 100%; background: #16a34a; border-radius: 2px;"></div>
+          </div>
+        </div>
+
+        <!-- Format options shown -->
+        <div style="font-size: 11px; font-weight: 600; color: #888; margin-bottom: 8px;">FORMAT OPTIONS</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 18px;">
+          <div style="background: #eff6ff; border: 1.5px solid #bfdbfe; border-radius: 8px; padding: 8px 12px; font-size: 12px;">
+            <div style="font-weight: 600; color: #2563eb;">1080p MP4</div>
+            <div style="color: #888; font-size: 10px;">287 MB · selected</div>
+          </div>
+          <div style="background: #f8f8f8; border: 1px solid #eee; border-radius: 8px; padding: 8px 12px; font-size: 12px;">
+            <div style="font-weight: 600; color: #555;">4K MP4</div>
+            <div style="color: #888; font-size: 10px;">1.2 GB</div>
+          </div>
+          <div style="background: #f8f8f8; border: 1px solid #eee; border-radius: 8px; padding: 8px 12px; font-size: 12px;">
+            <div style="font-weight: 600; color: #555;">720p MP4</div>
+            <div style="color: #888; font-size: 10px;">142 MB</div>
+          </div>
+          <div style="background: #f8f8f8; border: 1px solid #eee; border-radius: 8px; padding: 8px 12px; font-size: 12px;">
+            <div style="font-weight: 600; color: #555;">MP3 Audio</div>
+            <div style="color: #888; font-size: 10px;">18 MB</div>
+          </div>
+        </div>
+
+        <!-- Supported platforms -->
+        <div style="font-size: 11px; font-weight: 600; color: #888; margin-bottom: 8px;">WORKS WITH</div>
+        <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+          <div style="display: flex; align-items: center; gap: 5px; background: #f8f8f8; border-radius: 20px; padding: 5px 12px; font-size: 11px; font-weight: 500; color: #555;">
+            <svg width="14" height="10" viewBox="0 0 24 18"><path d="M23.5 3.5a3 3 0 00-2.1-2.1C19.5.9 12 .9 12 .9s-7.5 0-9.4.5A3 3 0 00.5 3.5 31.5 31.5 0 000 9a31.5 31.5 0 00.5 5.5 3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1A31.5 31.5 0 0024 9a31.5 31.5 0 00-.5-5.5z" fill="#FF0000"/><path d="M9.6 12.5V5.3l6.4 3.6-6.4 3.6z" fill="#fff"/></svg>
+            YouTube
+          </div>
+          <div style="display: flex; align-items: center; gap: 5px; background: #f8f8f8; border-radius: 20px; padding: 5px 12px; font-size: 11px; font-weight: 500; color: #555;">
+            <svg width="14" height="14" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 007.04 6.3 6.34 6.34 0 005.64-6.31V8.73a8.19 8.19 0 004.76 1.52v-3.4a4.85 4.85 0 01-1-.16z" fill="#000"/></svg>
+            TikTok
+          </div>
+          <div style="display: flex; align-items: center; gap: 5px; background: #f8f8f8; border-radius: 20px; padding: 5px 12px; font-size: 11px; font-weight: 500; color: #555;">
+            <svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" fill="#E4405F"/></svg>
+            Instagram
+          </div>
+          <div style="display: flex; align-items: center; gap: 5px; background: #f8f8f8; border-radius: 20px; padding: 5px 12px; font-size: 11px; font-weight: 500; color: #555;">
+            <svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z" fill="#1877F2"/></svg>
+            Facebook
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-footer">
+    <div class="result"><svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> Video downloaded in best quality — no browser extensions needed</div>
+    <div class="meta">8.2 seconds · Agent</div>
+  </div>
+</div>
+
+<!-- ===== SCENE 9: PDF Toolkit ===== -->
+<div class="scene-block">
+  <div class="scene-header">
+    <h3>Your voice-powered PDF toolkit</h3>
+    <div class="voice-cmd">"Convert this PDF to Word and extract the tables"</div>
+  </div>
+
+  <div class="mockup-wrap">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+      <!-- Left: Source PDF mock -->
+      <div>
+        <!-- PDF viewer mock -->
+        <div class="win">
+          <div class="win-bar">
+            <div class="d-r"></div><div class="d-y"></div><div class="d-g"></div>
+            <span style="margin-left: 8px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#FF2116" style="vertical-align: middle;"><path d="M7 2a2 2 0 00-2 2v16a2 2 0 002 2h10a2 2 0 002-2V8l-6-6H7zm0 2h6v4a2 2 0 002 2h4v10H7V4zm2 8v2h6v-2H9zm0 4v2h4v-2H9z"/></svg>
+              Preview — Q2-Financial-Report.pdf
+            </span>
+          </div>
+          <div style="padding: 20px; background: #fafafa;">
+            <!-- PDF page mock -->
+            <div style="background: #fff; border: 1px solid #e5e5e5; border-radius: 2px; padding: 28px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); min-height: 300px;">
+              <div style="font-size: 16px; font-weight: 700; color: #1d1a1a; margin-bottom: 4px;">Q2 2026 Financial Report</div>
+              <div style="font-size: 10px; color: #aaa; margin-bottom: 16px;">Globex Corporation — Confidential</div>
+              <div style="height: 6px; background: #f0f0f0; border-radius: 3px; margin-bottom: 6px; width: 100%;"></div>
+              <div style="height: 6px; background: #f0f0f0; border-radius: 3px; margin-bottom: 6px; width: 92%;"></div>
+              <div style="height: 6px; background: #f0f0f0; border-radius: 3px; margin-bottom: 16px; width: 78%;"></div>
+              <!-- Table mock -->
+              <div style="font-size: 10px; font-weight: 600; color: #555; margin-bottom: 6px;">Revenue Breakdown</div>
+              <div style="border: 1px solid #e5e5e5; border-radius: 4px; overflow: hidden; font-size: 11px;">
+                <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; background: #f8f8f8; font-weight: 600; color: #555;">
+                  <div style="padding: 6px 8px; border-right: 1px solid #e5e5e5;">Region</div>
+                  <div style="padding: 6px 8px; border-right: 1px solid #e5e5e5;">Q1</div>
+                  <div style="padding: 6px 8px; border-right: 1px solid #e5e5e5;">Q2</div>
+                  <div style="padding: 6px 8px;">Change</div>
+                </div>
+                <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; color: #444;">
+                  <div style="padding: 6px 8px; border-right: 1px solid #e5e5e5; border-top: 1px solid #e5e5e5;">North America</div>
+                  <div style="padding: 6px 8px; border-right: 1px solid #e5e5e5; border-top: 1px solid #e5e5e5;">$42.1M</div>
+                  <div style="padding: 6px 8px; border-right: 1px solid #e5e5e5; border-top: 1px solid #e5e5e5;">$48.3M</div>
+                  <div style="padding: 6px 8px; border-top: 1px solid #e5e5e5; color: #16a34a; font-weight: 600;">+14.7%</div>
+                </div>
+                <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; color: #444;">
+                  <div style="padding: 6px 8px; border-right: 1px solid #e5e5e5; border-top: 1px solid #e5e5e5;">Europe</div>
+                  <div style="padding: 6px 8px; border-right: 1px solid #e5e5e5; border-top: 1px solid #e5e5e5;">$28.5M</div>
+                  <div style="padding: 6px 8px; border-right: 1px solid #e5e5e5; border-top: 1px solid #e5e5e5;">$31.2M</div>
+                  <div style="padding: 6px 8px; border-top: 1px solid #e5e5e5; color: #16a34a; font-weight: 600;">+9.5%</div>
+                </div>
+                <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; color: #444;">
+                  <div style="padding: 6px 8px; border-right: 1px solid #e5e5e5; border-top: 1px solid #e5e5e5;">APAC</div>
+                  <div style="padding: 6px 8px; border-right: 1px solid #e5e5e5; border-top: 1px solid #e5e5e5;">$15.8M</div>
+                  <div style="padding: 6px 8px; border-right: 1px solid #e5e5e5; border-top: 1px solid #e5e5e5;">$14.2M</div>
+                  <div style="padding: 6px 8px; border-top: 1px solid #e5e5e5; color: #c5221f; font-weight: 600;">-10.1%</div>
+                </div>
+              </div>
+              <div style="height: 6px; background: #f0f0f0; border-radius: 3px; margin-top: 14px; width: 100%;"></div>
+              <div style="height: 6px; background: #f0f0f0; border-radius: 3px; margin-top: 6px; width: 85%;"></div>
+            </div>
+            <div style="text-align: center; font-size: 10px; color: #aaa; margin-top: 8px;">Page 3 of 24</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Cue output -->
+      <div class="gen-box" style="align-self: stretch; display: flex; flex-direction: column;">
+        <div class="gen-label">Cue processed</div>
+
+        <!-- Output files -->
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
+          <!-- Word file -->
+          <div style="display: flex; align-items: center; gap: 12px; background: #eff6ff; border: 1px solid #dbeafe; border-radius: 10px; padding: 12px 14px;">
+            <div style="width: 38px; height: 38px; border-radius: 8px; background: #2563eb; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <span style="color: #fff; font-size: 12px; font-weight: 800;">W</span>
+            </div>
+            <div style="flex: 1; min-width: 0;">
+              <div style="font-size: 13px; font-weight: 600; color: #1d1a1a;">Q2-Financial-Report.docx</div>
+              <div style="font-size: 11px; color: #888;">Full document · formatting preserved</div>
+            </div>
+            <div style="font-size: 11px; font-weight: 600; color: #2563eb;">Open</div>
+          </div>
+          <!-- Excel tables -->
+          <div style="display: flex; align-items: center; gap: 12px; background: #f0fdf4; border: 1px solid #dcfce7; border-radius: 10px; padding: 12px 14px;">
+            <div style="width: 38px; height: 38px; border-radius: 8px; background: #16a34a; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <span style="color: #fff; font-size: 12px; font-weight: 800;">X</span>
+            </div>
+            <div style="flex: 1; min-width: 0;">
+              <div style="font-size: 13px; font-weight: 600; color: #1d1a1a;">Q2-Tables-Extracted.xlsx</div>
+              <div style="font-size: 11px; color: #888;">8 tables · auto-formatted</div>
+            </div>
+            <div style="font-size: 11px; font-weight: 600; color: #16a34a;">Open</div>
+          </div>
+          <!-- Summary -->
+          <div style="display: flex; align-items: center; gap: 12px; background: #fefce8; border: 1px solid #fef08a; border-radius: 10px; padding: 12px 14px;">
+            <div style="width: 38px; height: 38px; border-radius: 8px; background: #ca8a04; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            </div>
+            <div style="flex: 1; min-width: 0;">
+              <div style="font-size: 13px; font-weight: 600; color: #1d1a1a;">Executive Summary.md</div>
+              <div style="font-size: 11px; color: #888;">Key findings in 5 bullet points</div>
+            </div>
+            <div style="font-size: 11px; font-weight: 600; color: #ca8a04;">Open</div>
+          </div>
+        </div>
+
+        <!-- Capabilities list -->
+        <div style="font-size: 11px; font-weight: 600; color: #888; margin-bottom: 8px;">ALSO TRY</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; font-size: 12px;">
+          <div style="background: #f8f8f8; border-radius: 8px; padding: 8px 10px; color: #555;">"Merge these 3 PDFs"</div>
+          <div style="background: #f8f8f8; border-radius: 8px; padding: 8px 10px; color: #555;">"Compress to under 5MB"</div>
+          <div style="background: #f8f8f8; border-radius: 8px; padding: 8px 10px; color: #555;">"Translate this PDF to Chinese"</div>
+          <div style="background: #f8f8f8; border-radius: 8px; padding: 8px 10px; color: #555;">"Add page numbers"</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-footer">
+    <div class="result"><svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> PDF → Word + Tables extracted + Summary — no third-party apps</div>
+    <div class="meta">4.8 seconds · Agent</div>
+  </div>
+</div>
+
+<!-- ===== SCENE 10: One-click HTML Presentation (Japan 7-Day Trip) ===== -->
+<div class="scene-block">
+  <div class="scene-header">
+    <h3>Generate presentations by voice</h3>
+    <div class="voice-cmd">"Turn my Japan trip notes into a beautiful presentation with photos"</div>
+  </div>
+
+  <div class="mockup-wrap" style="background: #f4f3f1;">
+    <!-- Full-width slide deck preview — no left panel, pure visual impact -->
+    <div style="max-width: 880px; margin: 0 auto;">
+      <div class="gen-label" style="margin-bottom: 16px;">Generated presentation — 7 slides</div>
+
+      <!-- Slide grid: 2 columns for visual richness -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+
+        <!-- Slide 1: Cover — full-bleed Fushimi Inari -->
+        <div style="border-radius: 10px; aspect-ratio: 16/9; position: relative; overflow: hidden; background: #1a1a1a; grid-column: 1 / -1;">
+          <img src="https://images.unsplash.com/photo-1478436127897-769e1b3f0f36?w=960&h=540&fit=crop&crop=center" alt="Fushimi Inari" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.55;">
+          <div style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 28px;">
+            <div style="font-size: 10px; font-weight: 600; letter-spacing: 3px; color: rgba(255,255,255,0.6); margin-bottom: 8px;">TRAVEL JOURNAL</div>
+            <div style="font-size: 36px; font-weight: 800; color: #fff; line-height: 1.15; letter-spacing: -1px;">7 Days in Japan</div>
+            <div style="font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 6px;">Tokyo · Kyoto · Osaka · Nara</div>
+            <div style="width: 40px; height: 2px; background: rgba(255,255,255,0.3); margin-top: 12px; border-radius: 1px;"></div>
+            <div style="font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 8px;">April 2026</div>
+          </div>
+          <div style="position: absolute; bottom: 8px; right: 12px; font-size: 8px; color: rgba(255,255,255,0.3);">1 / 7</div>
+        </div>
+
+        <!-- Slide 2: Tokyo — Shibuya crossing -->
+        <div style="border-radius: 10px; aspect-ratio: 16/9; position: relative; overflow: hidden; background: #1a1a1a;">
+          <img src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=480&h=270&fit=crop&crop=center" alt="Tokyo Shibuya" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.7;">
+          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);"></div>
+          <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 14px 16px;">
+            <div style="font-size: 8px; font-weight: 600; letter-spacing: 1.5px; color: #f97316; margin-bottom: 2px;">DAY 1-2</div>
+            <div style="font-size: 16px; font-weight: 700; color: #fff;">Tokyo</div>
+            <div style="font-size: 9px; color: rgba(255,255,255,0.6); margin-top: 2px;">Shibuya · Harajuku · Akihabara · Tsukiji</div>
+          </div>
+          <div style="position: absolute; bottom: 6px; right: 10px; font-size: 7px; color: rgba(255,255,255,0.3);">2 / 7</div>
+        </div>
+
+        <!-- Slide 3: Kyoto — Golden temple -->
+        <div style="border-radius: 10px; aspect-ratio: 16/9; position: relative; overflow: hidden; background: #1a1a1a;">
+          <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=480&h=270&fit=crop&crop=center" alt="Kyoto Temple" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.7;">
+          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);"></div>
+          <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 14px 16px;">
+            <div style="font-size: 8px; font-weight: 600; letter-spacing: 1.5px; color: #22c55e; margin-bottom: 2px;">DAY 3-4</div>
+            <div style="font-size: 16px; font-weight: 700; color: #fff;">Kyoto</div>
+            <div style="font-size: 9px; color: rgba(255,255,255,0.6); margin-top: 2px;">Kinkaku-ji · Arashiyama · Geisha District</div>
+          </div>
+          <div style="position: absolute; bottom: 6px; right: 10px; font-size: 7px; color: rgba(255,255,255,0.3);">3 / 7</div>
+        </div>
+
+        <!-- Slide 4: Osaka — Street food -->
+        <div style="border-radius: 10px; aspect-ratio: 16/9; position: relative; overflow: hidden; background: #1a1a1a;">
+          <img src="https://images.unsplash.com/photo-1590559899731-a382839e5549?w=480&h=270&fit=crop&crop=center" alt="Osaka Dotonbori" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.7;">
+          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);"></div>
+          <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 14px 16px;">
+            <div style="font-size: 8px; font-weight: 600; letter-spacing: 1.5px; color: #f43f5e; margin-bottom: 2px;">DAY 5-6</div>
+            <div style="font-size: 16px; font-weight: 700; color: #fff;">Osaka</div>
+            <div style="font-size: 9px; color: rgba(255,255,255,0.6); margin-top: 2px;">Dotonbori · Street food · Osaka Castle</div>
+          </div>
+          <div style="position: absolute; bottom: 6px; right: 10px; font-size: 7px; color: rgba(255,255,255,0.3);">5 / 7</div>
+        </div>
+
+        <!-- Slide 5: Nara deer -->
+        <div style="border-radius: 10px; aspect-ratio: 16/9; position: relative; overflow: hidden; background: #1a1a1a;">
+          <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=480&h=270&fit=crop&crop=center" alt="Nara Deer" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.7;">
+          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);"></div>
+          <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 14px 16px;">
+            <div style="font-size: 8px; font-weight: 600; letter-spacing: 1.5px; color: #a78bfa; margin-bottom: 2px;">DAY 7</div>
+            <div style="font-size: 16px; font-weight: 700; color: #fff;">Nara</div>
+            <div style="font-size: 9px; color: rgba(255,255,255,0.6); margin-top: 2px;">Deer Park · Todai-ji · Sake Tasting</div>
+          </div>
+          <div style="position: absolute; bottom: 6px; right: 10px; font-size: 7px; color: rgba(255,255,255,0.3);">6 / 7</div>
+        </div>
+
+        <!-- Slide 6: Closing — Mt. Fuji sunset -->
+        <div style="border-radius: 10px; aspect-ratio: 16/9; position: relative; overflow: hidden; background: #1a1a1a; grid-column: 1 / -1;">
+          <img src="https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?w=960&h=540&fit=crop&crop=center" alt="Mt. Fuji Sunset" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.6;">
+          <div style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 28px;">
+            <div style="font-size: 28px; font-weight: 800; color: #fff; line-height: 1.2; letter-spacing: -0.5px;">また来るよ、日本。</div>
+            <div style="font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 8px;">7 days · 4 cities · endless memories</div>
+            <div style="width: 40px; height: 2px; background: rgba(255,255,255,0.25); margin-top: 14px; border-radius: 1px;"></div>
+          </div>
+          <div style="position: absolute; bottom: 8px; right: 12px; font-size: 8px; color: rgba(255,255,255,0.3);">7 / 7</div>
+        </div>
+
+      </div>
+
+      <!-- Action bar -->
+      <div style="display: flex; gap: 10px; margin-top: 16px; align-items: center; flex-wrap: wrap;">
+        <div class="badge ok" style="font-size: 12px; padding: 6px 14px;">
+          <svg class="check-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+          7 slides · auto-sourced photos
+        </div>
+        <span style="font-size: 11px; color: #888;">HTML · fullscreen · keyboard nav · works offline</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-footer">
+    <div class="result"><svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> Trip notes → cinematic 7-slide deck in 15 seconds</div>
+    <div class="money-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> Skip Canva / Keynote — just speak</div>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- ===================== -->
+<!-- SPEED COMPARISON      -->
+<!-- ===================== -->
+<div class="scene-section">
+  <h2>The speed gap.</h2>
+  <p class="sub">What used to take minutes now takes seconds.</p>
+</div>
+
+<div class="compare-row">
+  <div class="cmp-box before">
+    <div class="cmp-label">Typing to ChatGPT</div>
+    <div class="cmp-num">4<span class="cmp-unit"> min</span></div>
+    <div class="cmp-desc">Copy context. Switch tab. Type prompt. Wait. Copy result. Switch back. Paste.</div>
+  </div>
+  <div class="cmp-box after">
+    <div class="cmp-label">Speaking to Cue</div>
+    <div class="cmp-num">3<span class="cmp-unit"> sec</span></div>
+    <div class="cmp-desc">Hold key. Speak. Done.<br>Cue already sees your screen.</div>
+  </div>
+</div>
+
+<div style="height:120px;"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/png" href="favicon.png" />
+<title>Privacy Policy — Cue</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  background: #fff; color: #1d1a1a;
+  -webkit-font-smoothing: antialiased;
+}
+nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px; height: 52px;
+  border-bottom: 1px solid #f0f0f0;
+}
+.nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: #1d1a1a; }
+.nav-logo img { width: 22px; height: 22px; border-radius: 6px; border: 1px solid #e8e8e8; }
+.nav-logo span { font-size: 15px; font-weight: 700; }
+.page { max-width: 680px; margin: 0 auto; padding: 64px 32px 96px; }
+h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.8px; margin-bottom: 8px; }
+.meta { font-size: 13px; color: #bbb; margin-bottom: 48px; }
+h2 { font-size: 16px; font-weight: 700; margin: 36px 0 10px; }
+p { font-size: 14px; color: #444; line-height: 1.75; margin-bottom: 12px; }
+ul { font-size: 14px; color: #444; line-height: 1.75; padding-left: 20px; margin-bottom: 12px; }
+li { margin-bottom: 4px; }
+a { color: #2563eb; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.highlight-box {
+  background: #f8f8f8; border-radius: 8px; padding: 16px 20px; margin-bottom: 16px;
+  font-size: 14px; color: #444; line-height: 1.75;
+}
+footer {
+  border-top: 1px solid #f0f0f0; padding: 20px 40px;
+  font-size: 12px; color: #bbb; text-align: center;
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="icon-light.png" alt="Cue" />
+    <span>Cue</span>
+  </a>
+</nav>
+
+<div class="page">
+  <h1>Privacy Policy</h1>
+  <p class="meta">Last updated: April 14, 2026 · Effective immediately</p>
+
+  <div class="highlight-box">
+    <strong>Summary:</strong> Cue is designed with privacy first. Your interaction history, screenshots, and voice recordings stay on your Mac and are never uploaded to our servers. We only collect your email address to manage beta access.
+  </div>
+
+  <div class="highlight-box" style="background:#fff7e6; border-left:3px solid #f59e0b;">
+    <strong>Analytics &amp; crash reporting:</strong> We use PostHog (US Cloud) and Sentry for anonymous product analytics and crash reporting. You can disable analytics in Settings → Privacy. We do not collect screenshots, voice content, or text you dictate.
+  </div>
+
+  <p>Cue ("we", "our", or "us") is a macOS AI assistant developed by Sophon LLC. This Privacy Policy explains what information we collect, how we use it, your rights, and the choices you have.</p>
+
+  <h2>1. Information We Collect</h2>
+  <p>We collect only what is necessary to operate the service:</p>
+  <ul>
+    <li><strong>Email address</strong> — collected when you redeem an invite code or join the waitlist, used to manage beta access.</li>
+    <li><strong>Invite code activity</strong> — which codes have been redeemed and by whom, to power the referral system.</li>
+    <li><strong>Anonymized usage metadata</strong> — aggregate counts of feature usage (e.g., number of agent requests), event timing, error codes, and a randomly generated device identifier (UUID), processed by PostHog (US Cloud) and Sentry. We never attach the content of what you say, type, or see (no transcripts, no screenshots, no selected text). You may disable analytics collection in Settings → Privacy.</li>
+    <li><strong>Payment information</strong> — if you subscribe to Cue Plus, payment is processed by Stripe. We do not store your card number or billing details.</li>
+  </ul>
+  <p>We do <strong>not</strong> collect your name, phone number, location, or any biometric data.</p>
+
+  <h2>2. What Stays on Your Device</h2>
+  <p>The following data is stored locally on your Mac and is never transmitted to our servers:</p>
+  <ul>
+    <li><strong>Interaction history</strong> — all past agent sessions stored in <code>~/.cue/history/</code>.</li>
+    <li><strong>Screenshots</strong> — captured during agent mode for immediate context processing; not stored remotely.</li>
+    <li><strong>Voice audio</strong> — processed in real-time for transcription and immediately discarded.</li>
+    <li><strong>Selected text and clipboard content</strong> — used only in the moment to fulfill your request, never logged.</li>
+    <li><strong>App credentials and API keys</strong> — stored in macOS Keychain, never transmitted.</li>
+  </ul>
+
+  <h2>3. How We Use Your Information</h2>
+  <ul>
+    <li>To grant and manage access to the Cue beta program.</li>
+    <li>To operate the invite code and referral system.</li>
+    <li>To send product updates and important service announcements (no marketing email without your explicit consent).</li>
+    <li>To understand aggregate usage patterns and improve the product.</li>
+    <li>To process payments for Cue Plus subscriptions.</li>
+  </ul>
+
+  <h2>4. Legal Basis for Processing (GDPR)</h2>
+  <p>If you are located in the European Economic Area (EEA), we process your personal data under the following legal bases:</p>
+  <ul>
+    <li><strong>Contract performance</strong> — processing your email to provide beta access and manage your account.</li>
+    <li><strong>Legitimate interests</strong> — anonymized usage analytics to improve the product.</li>
+    <li><strong>Consent</strong> — marketing communications, which you may withdraw at any time.</li>
+  </ul>
+
+  <h2>5. Third-Party Services</h2>
+  <p>Cue uses the following third-party services. Each has its own privacy policy governing its data practices:</p>
+  <ul>
+    <li><strong>Anthropic API</strong> — voice commands and screen context are sent to Claude models to generate responses. Anthropic does not use API inputs to train models by default. See <a href="https://www.anthropic.com/privacy" target="_blank">Anthropic's Privacy Policy</a>.</li>
+    <li><strong>Deepgram</strong> — real-time speech-to-text. Audio is processed transiently and not stored for training. See <a href="https://deepgram.com/privacy" target="_blank">Deepgram's Privacy Policy</a>.</li>
+    <li><strong>Google (Gemini API)</strong> — used for fast-path text tasks. See <a href="https://policies.google.com/privacy" target="_blank">Google's Privacy Policy</a>.</li>
+    <li><strong>Stripe</strong> — payment processing for Plus subscriptions. We never see your full card details. See <a href="https://stripe.com/privacy" target="_blank">Stripe's Privacy Policy</a>.</li>
+    <li><strong>Cloudflare</strong> — CDN, infrastructure, and edge compute. See <a href="https://www.cloudflare.com/privacypolicy/" target="_blank">Cloudflare's Privacy Policy</a>.</li>
+    <li><strong>PostHog (US Cloud)</strong> — anonymous product analytics. We send only aggregated event names, timing, error codes, and a randomly generated device UUID. No content (no transcripts, screenshots, or text you dictate) is ever sent. See <a href="https://posthog.com/privacy" target="_blank">PostHog's Privacy Policy</a>.</li>
+    <li><strong>Sentry</strong> — application crash and error reporting. Stack traces and error metadata are sent so we can fix bugs. IP addresses are stripped before transmission. See <a href="https://sentry.io/privacy/" target="_blank">Sentry's Privacy Policy</a>.</li>
+  </ul>
+  <p>We do not use Google Analytics, Meta Pixel, or any advertising or behavioral tracking networks. We do not sell, share, or rent your data to any third party for advertising purposes.</p>
+
+  <h2>6. Cookies and Tracking</h2>
+  <p>Our website (heycue.io) uses PostHog for anonymous visit analytics (page views, referrers, country) — no cookies are used for advertising. We do not use any advertising tracking pixels (no Google Ads, Meta Pixel, etc.). Local storage is used only for technical functionality (e.g., remembering your invite code session state).</p>
+
+  <h2>7. Data Retention</h2>
+  <ul>
+    <li><strong>Beta email and invite data</strong> — retained for the duration of the beta program, and for up to 12 months after the beta ends.</li>
+    <li><strong>Subscription records</strong> — retained for 7 years as required by financial regulations.</li>
+    <li><strong>Anonymized analytics</strong> — retained indefinitely in aggregate form.</li>
+  </ul>
+  <p>You may request deletion of your personal data at any time (see Your Rights below).</p>
+
+  <h2>8. Your Rights</h2>
+  <p>Depending on your location, you have the following rights regarding your personal data:</p>
+  <ul>
+    <li><strong>Access</strong> — request a copy of the personal data we hold about you.</li>
+    <li><strong>Correction</strong> — request correction of inaccurate data.</li>
+    <li><strong>Deletion</strong> — request that we delete your data ("right to be forgotten").</li>
+    <li><strong>Portability</strong> — request your data in a machine-readable format.</li>
+    <li><strong>Objection</strong> — object to processing based on legitimate interests.</li>
+    <li><strong>Withdraw consent</strong> — unsubscribe from communications at any time.</li>
+  </ul>
+  <p><strong>California residents (CCPA):</strong> You have the right to know what personal information we collect, the right to delete it, the right to opt out of its sale (we do not sell personal data), and the right to non-discrimination for exercising these rights.</p>
+  <p>To exercise any of these rights, email us at <a href="mailto:oscarzamora199907@gmail.com">oscarzamora199907@gmail.com</a>. We will respond within 30 days.</p>
+
+  <h2>9. Data Security</h2>
+  <p>We use industry-standard measures to protect your data, including TLS encryption in transit and access controls on our infrastructure. However, no system is 100% secure. If you believe your data has been compromised, please contact us immediately.</p>
+
+  <h2>10. Children's Privacy</h2>
+  <p>Cue is not directed at children under 13. We do not knowingly collect personal data from anyone under 13. If you believe a child has provided us with personal data, please contact us and we will delete it promptly.</p>
+
+  <h2>11. International Transfers</h2>
+  <p>Your data may be processed in the United States and other countries where our service providers operate. By using Cue, you consent to the transfer of your information to these countries, which may have different data protection laws than your country of residence.</p>
+
+  <h2>12. Changes to This Policy</h2>
+  <p>We may update this policy as the product evolves. If changes are material, we will notify you via email at least 14 days before they take effect. The "Last updated" date at the top of this page reflects the most recent revision. Continued use of Cue after changes take effect constitutes acceptance of the revised policy.</p>
+
+  <h2>13. Contact</h2>
+  <p>Questions or requests regarding your privacy? Contact us at <a href="mailto:oscarzamora199907@gmail.com">oscarzamora199907@gmail.com</a>. We aim to respond within 3 business days.</p>
+</div>
+
+<footer>© 2026 Cue · Sophon LLC · <a href="privacy.html" style="color:#bbb;">Privacy</a> · <a href="terms.html" style="color:#bbb;">Terms</a></footer>
+
+</body>
+</html>

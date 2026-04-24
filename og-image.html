@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  width: 1200px;
+  height: 630px;
+  font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+  background: #0a0a0a;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Subtle grid background */
+body::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Accent glow */
+.glow {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(37,99,235,0.15) 0%, transparent 70%);
+  top: -100px;
+  right: 100px;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 80px;
+  padding: 0 80px;
+  width: 100%;
+}
+
+.left {
+  flex: 1;
+}
+
+.logo-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.logo-icon {
+  width: 48px;
+  height: 48px;
+  background: #fff;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Comet icon approximation */
+.logo-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.logo-text {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+h1 {
+  font-size: 64px;
+  font-weight: 800;
+  letter-spacing: -3px;
+  line-height: 1.05;
+  margin-bottom: 20px;
+}
+
+h1 em {
+  font-style: normal;
+  color: #2563eb;
+}
+
+.sub {
+  font-size: 20px;
+  color: #888;
+  line-height: 1.6;
+  max-width: 440px;
+}
+
+.right {
+  flex-shrink: 0;
+  width: 360px;
+}
+
+/* Mini pill mockup */
+.pill-demo {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 32px 28px;
+}
+
+.pill-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.pill-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+.pill-mock {
+  background: rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.pill-line {
+  height: 6px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 3px;
+  margin-bottom: 6px;
+}
+
+.cue-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 999px;
+  padding: 8px 16px;
+  margin-top: 8px;
+}
+
+.wv {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.wv span {
+  width: 3px;
+  border-radius: 2px;
+  background: #2563eb;
+}
+
+.pill-text {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #2563eb;
+  background: rgba(37,99,235,0.12);
+  border: 1px solid rgba(37,99,235,0.2);
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+}
+
+.badge-dot {
+  width: 5px;
+  height: 5px;
+  background: #2563eb;
+  border-radius: 50%;
+}
+
+.domain {
+  position: absolute;
+  bottom: 32px;
+  right: 80px;
+  font-size: 16px;
+  color: #555;
+  letter-spacing: 0.5px;
+}
+</style>
+</head>
+<body>
+  <div class="glow"></div>
+
+  <div class="content">
+    <div class="left">
+      <div class="logo-row">
+        <img src="icon.png" style="width:48px;height:48px;border-radius:12px;" alt="Cue" />
+        <span class="logo-text">Cue</span>
+      </div>
+
+      <div class="badge">
+        <span class="badge-dot"></span>
+        VOICE AI AGENT FOR MACOS
+      </div>
+
+      <h1>Say it.<br/><em>It's done.</em></h1>
+      <p class="sub">Press a hotkey, speak a command. Cue sees your screen, understands context, and executes complex tasks — hands-free.</p>
+    </div>
+
+    <div class="right">
+      <div class="pill-demo">
+        <div class="pill-bar">
+          <div class="pill-dot" style="background:#ff5f57"></div>
+          <div class="pill-dot" style="background:#ffbd2e"></div>
+          <div class="pill-dot" style="background:#28ca41"></div>
+          <span style="font-size:10px;color:#555;margin-left:4px;">my2025.vercel.app</span>
+        </div>
+        <div class="pill-mock">
+          <div class="pill-line" style="width:70%"></div>
+          <div class="pill-line" style="width:90%"></div>
+          <div class="pill-line" style="width:55%"></div>
+        </div>
+        <div class="pill-mock">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+            <div style="background:rgba(255,255,255,0.06);border-radius:6px;height:40px;"></div>
+            <div style="background:rgba(255,255,255,0.06);border-radius:6px;height:40px;"></div>
+          </div>
+        </div>
+        <div class="cue-pill">
+          <div class="wv">
+            <span style="height:4px;"></span>
+            <span style="height:10px;"></span>
+            <span style="height:14px;"></span>
+            <span style="height:8px;"></span>
+            <span style="height:11px;"></span>
+          </div>
+          <span class="pill-text">Building your travel story...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <span class="domain">heycue.io</span>
+</body>
+</html>

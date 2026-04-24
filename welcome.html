@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/png" href="favicon.png" />
+<title>Welcome to Cue Beta</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  background: #fff; color: #1d1a1a;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh; display: flex; flex-direction: column;
+}
+nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px; height: 52px;
+  border-bottom: 1px solid #f0f0f0;
+}
+.nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: #1d1a1a; }
+.nav-logo span { font-size: 15px; font-weight: 700; }
+.page { max-width: 580px; margin: 0 auto; padding: 72px 32px; flex: 1; }
+
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1.5px; color: #059669;
+  background: #f0fdf4; border: 1px solid #d1fae5;
+  padding: 4px 10px; border-radius: 20px; margin-bottom: 20px;
+}
+.badge .dot { width: 5px; height: 5px; background: #059669; border-radius: 50%; }
+
+h1 { font-size: 36px; font-weight: 800; letter-spacing: -1.2px; margin-bottom: 12px; }
+.sub { font-size: 15px; color: #888; line-height: 1.65; margin-bottom: 36px; }
+
+/* Download button */
+.btn-download {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #1d1a1a; color: #fff;
+  font-size: 15px; font-weight: 600;
+  padding: 13px 28px; border-radius: 10px;
+  text-decoration: none; margin-bottom: 10px;
+  transition: opacity 0.15s;
+}
+.btn-download:hover { opacity: 0.82; }
+.download-meta { font-size: 12px; color: #bbb; margin-bottom: 48px; }
+
+/* Divider */
+.section-divider { border: none; border-top: 1px solid #f0f0f0; margin: 40px 0; }
+
+/* Codes section */
+.codes-title { font-size: 16px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 6px; }
+.codes-desc { font-size: 13px; color: #888; line-height: 1.6; margin-bottom: 20px; }
+
+.codes-grid { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+.code-row {
+  display: flex; align-items: center; justify-content: space-between;
+  border: 1px solid #eee; border-radius: 10px; padding: 12px 16px;
+}
+.code-value {
+  font-family: 'SF Mono', 'Monaco', monospace;
+  font-size: 16px; font-weight: 700; letter-spacing: 1px; color: #1d1a1a;
+}
+.btn-copy {
+  font-size: 12px; font-weight: 600; color: #888;
+  background: #f5f5f5; border: none; border-radius: 6px;
+  padding: 5px 12px; cursor: pointer; transition: all 0.15s;
+}
+.btn-copy:hover { background: #eee; color: #1d1a1a; }
+.btn-copy.copied { background: #d1fae5; color: #059669; }
+
+.copy-all {
+  width: 100%; padding: 11px;
+  background: #fff; border: 1px solid #e8e8e8; border-radius: 9px;
+  font-size: 13px; font-weight: 600; color: #555; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  transition: border-color 0.15s, color 0.15s; margin-bottom: 12px;
+}
+.copy-all:hover { border-color: #ccc; color: #1d1a1a; }
+.copy-all.copied { border-color: #d1fae5; color: #059669; background: #f0fdf4; }
+
+.share-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; color: #888; text-decoration: none;
+  padding: 8px 14px; border: 1px solid #eee; border-radius: 8px;
+  transition: border-color 0.15s;
+}
+.share-link:hover { border-color: #ccc; color: #1d1a1a; }
+
+/* Reward notice */
+.reward-notice {
+  background: #f8fbff; border: 1px solid #dbeafe; border-radius: 10px;
+  padding: 14px 16px; margin-top: 20px;
+  font-size: 13px; color: #555; line-height: 1.6;
+}
+.reward-notice strong { color: #2563eb; }
+
+footer {
+  border-top: 1px solid #f0f0f0; padding: 20px 40px;
+  font-size: 12px; color: #bbb; text-align: center;
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <img width="22" height="22" src="icon.png" alt="Cue" style="border-radius:6px;" />
+    <span>Cue</span>
+  </a>
+</nav>
+
+<div class="page">
+  <div class="badge"><span class="dot"></span>Beta access granted</div>
+  <h1>Welcome to Cue.</h1>
+  <p class="sub">You're in. Download the app, press ⌥Space, and say anything to your Mac.</p>
+
+  <a href="#" class="btn-download" id="download-btn">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3M2 11h10" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Download Cue for Mac
+  </a><br/>
+  <span class="download-meta">macOS 13+ · Apple Silicon &amp; Intel · ~130 MB</span>
+
+  <hr class="section-divider" />
+
+  <div class="codes-title">Your invite codes</div>
+  <p class="codes-desc">Share these with people you think will love Cue. When someone joins using your code, you'll automatically receive 3 more.</p>
+
+  <div class="codes-grid" id="codes-grid">
+    <!-- filled by JS -->
+  </div>
+
+  <button class="copy-all" id="copy-all-btn" onclick="copyAll()">
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="4" y="4" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M2.5 9H2a1 1 0 01-1-1V2a1 1 0 011-1h6a1 1 0 011 1v.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+    Copy all codes
+  </button>
+
+  <div style="display:flex;gap:8px;flex-wrap:wrap;">
+    <a href="#" class="share-link" id="share-twitter">
+      <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M12.6 0h2.45l-5.36 6.12L16 16h-4.94l-3.87-5.07L2.74 16H.29l5.73-6.55L0 0h5.07l3.5 4.58L12.6 0zm-.86 14.37h1.35L4.28 1.37H2.83l8.91 13z"/></svg>
+      Share on X
+    </a>
+  </div>
+
+  <div class="reward-notice">
+    <strong>Every referral earns you 3 more codes.</strong> The more people you bring in, the more you can share — and help Cue grow.
+  </div>
+
+  <hr class="section-divider" />
+
+  <div class="codes-title">Join the Beta Community</div>
+  <p class="codes-desc">Report bugs, share feedback, and shape what we build next. Direct line to the team.</p>
+  <a href="https://t.me/+iubyiE607WYwNDQx" class="btn-download" style="background:#229ED9;">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-2.01 9.47c-.144.672-.54.836-1.093.52l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.332-.373-.12L7.088 14.4l-2.95-.924c-.64-.202-.653-.64.136-.948l11.52-4.44c.533-.194 1.002.13.768.16z"/></svg>
+    Join Telegram — Cue Beta
+  </a>
+</div>
+
+<footer>© 2026 Cue · heycue.io · <a href="privacy.html" style="color:#bbb;">Privacy</a></footer>
+
+<script>
+const params = new URLSearchParams(location.search);
+const codesParam = params.get('codes');
+const downloadUrl = params.get('dl') || '#';
+
+// Set download link
+document.getElementById('download-btn').href = downloadUrl;
+
+function renderCodes(codes) {
+  const grid = document.getElementById('codes-grid');
+  if (!codes || codes.length === 0) {
+    grid.innerHTML = '<p style="font-size:13px;color:#bbb;">No codes available.</p>';
+    return;
+  }
+  grid.innerHTML = codes.map(code => `
+    <div class="code-row">
+      <span class="code-value">${code}</span>
+      <button class="btn-copy" onclick="copyCode(this, '${code}')">Copy</button>
+    </div>
+  `).join('');
+
+  // Twitter share
+  const shareText = `I just got early access to Cue — an AI agent for macOS that can do anything you say. Use my invite code to join: ${codes[0]}\n\nheycue.io`;
+  document.getElementById('share-twitter').href =
+    'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText);
+}
+
+function copyCode(btn, code) {
+  navigator.clipboard.writeText(code).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+function copyAll() {
+  const codes = [...document.querySelectorAll('.code-value')].map(el => el.textContent);
+  const text = 'My Cue beta invite codes:\n' + codes.join('\n') + '\n\nRedeem at heycue.io';
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copy-all-btn');
+    btn.textContent = '✓ Copied to clipboard';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="4" y="4" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M2.5 9H2a1 1 0 01-1-1V2a1 1 0 011-1h6a1 1 0 011 1v.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg> Copy all codes`;
+      btn.classList.remove('copied');
+    }, 2500);
+  });
+}
+
+// Parse codes from URL param or fetch from API
+if (codesParam) {
+  try {
+    renderCodes(JSON.parse(decodeURIComponent(codesParam)));
+  } catch {
+    renderCodes([]);
+  }
+}
+</script>
+</body>
+</html>

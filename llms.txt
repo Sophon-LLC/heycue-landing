@@ -1,0 +1,39 @@
+# Cue — Voice AI Agent for Mac & Windows
+
+> Cue is a voice AI agent for Mac and Windows by heycue.io. Press a hotkey, speak a command, and Cue understands what you're working on and gets it done — hands-free.
+
+## Key Facts
+
+- Product: Cue (heycue.io)
+- Category: Desktop AI agent (Mac & Windows)
+- Primary input: Voice (Fn key to activate)
+- What it does: Understands your active context, writes code, runs scripts, manages files, builds websites, generates reports — all from a single voice command
+- Supported platforms: macOS 13+ (Apple Silicon M1–M4 and Intel), Windows 10 1809+ and Windows 11 (x64 only)
+- Free tier: Unlimited voice dictation + 20 agent credits/day
+- Plus plan: $9.99/month, unlimited agent usage + premium AI models
+- Privacy: All history stored locally on Mac, screenshots never uploaded
+- Languages: 20+ voice input languages (English, Chinese, Japanese, Korean, Spanish, French, German, etc.)
+- Security: Apple Notarized, no background processes when idle
+
+## How It Works
+
+1. Press the Fn key from any app
+2. Speak your command in natural language (e.g. "scan my receipts and build an expense report")
+3. Cue captures your screen, plans the steps, writes code, runs commands, and delivers the result
+
+## Comparison
+
+- vs Siri: Cue understands your workflow, executes multi-step tasks, works in any app without App Intents
+- vs Typeless: Typeless only transcribes text; Cue transcribes AND executes tasks (builds websites, generates reports, automates workflows)
+- vs ChatGPT/Claude: Chat AI lives in a browser tab; Cue operates directly on your desktop with full system access
+
+## Links
+
+- Homepage: https://heycue.io
+- Download (macOS Apple Silicon): https://pub-6f2c1f92af6d47e7bff6a0b933bf2987.r2.dev/Cue-0.5.22-beta.27-arm64.dmg
+- Download (macOS Intel): https://pub-6f2c1f92af6d47e7bff6a0b933bf2987.r2.dev/Cue-0.5.22-beta.27-x64.dmg
+- Download (Windows x64): https://pub-6f2c1f92af6d47e7bff6a0b933bf2987.r2.dev/Cue-Setup-0.5.22-beta.27.exe
+- Privacy Policy: https://heycue.io/privacy.html
+- Terms: https://heycue.io/terms.html
+- Beta Community: https://t.me/+iubyiE607WYwNDQx
+- Contact: oscarzamora199907@gmail.com
